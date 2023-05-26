@@ -25,7 +25,7 @@ public class ItemContainerView : MonoBehaviour
         for (int i = 0; i < container.SlotCount; i++)
         {
             var stack = container[i];
-            slotViews[i].Display(stack.Item, stack.Count);
+            slotViews[i].Display(stack);
         }
     }
 }
