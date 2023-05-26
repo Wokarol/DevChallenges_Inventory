@@ -47,4 +47,10 @@ public class ClickGrabber : MonoBehaviour, IPointerClickHandler
         onClick?.Invoke(clickedItem);
         onClick = null;
     }
+
+    internal void Abort()
+    {
+        gameObject.SetActive(false);
+        this.onClick = null;
+    }
 }

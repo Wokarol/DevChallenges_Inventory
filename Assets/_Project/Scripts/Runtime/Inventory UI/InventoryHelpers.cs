@@ -35,4 +35,9 @@ public class InventoryHelpers : MonoBehaviour
     {
         clickGrabber.Show(clickCallback);
     }
+
+    public void AwaitClickAbort()
+    {
+        clickGrabber.Abort();
+    }
 }
