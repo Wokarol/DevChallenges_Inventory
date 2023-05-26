@@ -31,7 +31,7 @@ public class InventoryHelpers : MonoBehaviour
         pool.Release(item);
     }
 
-    public void AwaitClick(Action clickCallback)
+    public void AwaitClick(Action<RectTransform> clickCallback)
     {
         clickGrabber.Show(clickCallback);
     }

@@ -29,8 +29,8 @@ public class Inventory : MonoBehaviour, IItemContainer
         {
             if (items[index] == value) return;
 
-            InventoryUpdated?.Invoke();
             items[index] = value;
+            InventoryUpdated?.Invoke();
         }
     }
 

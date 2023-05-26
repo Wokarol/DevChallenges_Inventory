@@ -9,6 +9,7 @@ public class ItemSlotView : MonoBehaviour, IPointerClickHandler
     [SerializeField] private ItemStackView stackView;
 
     private int index = -1;
+    private ItemContainerView owner;
     private bool isHeld = false;
     private InventoryHelpers helpers;
 
@@ -27,9 +28,10 @@ public class ItemSlotView : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void Init(int index)
+    public void Init(int index, ItemContainerView owner)
     {
         this.index = index;
+        this.owner = owner;
     }
 
     public void Display(ItemStack? stack)
@@ -49,8 +51,17 @@ public class ItemSlotView : MonoBehaviour, IPointerClickHandler
         helpers.AwaitClick(ClickedWhileDragging);
     }
 
-    private void ClickedWhileDragging()
+    private void ClickedWhileDragging(RectTransform clickedTarget)
     {
+        var otherSlot = clickedTarget == null 
+            ? null 
+            : clickedTarget.GetComponentInParent<ItemSlotView>();
+        if (otherSlot != null)
+        {
+            owner.TryMoveItem(index, otherSlot.owner, otherSlot.index);
+        }
+
+
         helpers.ReturnUIItem(draggedImage);
         draggedImage = null;
 
