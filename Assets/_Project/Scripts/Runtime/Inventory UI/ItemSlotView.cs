@@ -41,6 +41,8 @@ public class ItemSlotView : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (stackView.IsEmpty) return;
+
         isHeld = true;
         stackView.gameObject.SetActive(false);
 

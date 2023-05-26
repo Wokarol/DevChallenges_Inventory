@@ -20,8 +20,9 @@ public class ItemContainerView : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (container == null)
+        if (container != null)
         {
+            //Debug.Log($"Unsubscribing {name}[{gameObject.GetInstanceID()}] from {((Component)this.container).name}[{((Component)this.container).gameObject.GetInstanceID()}]");
             container.InventoryUpdated -= UpdateContainerView;
         }
     }
@@ -30,6 +31,7 @@ public class ItemContainerView : MonoBehaviour
     {
         if (this.container != null)
         {
+            //Debug.Log($"Unsubscribing {name}[{gameObject.GetInstanceID()}] from {((Component)this.container).name}[{((Component)this.container).gameObject.GetInstanceID()}]");
             container.InventoryUpdated -= UpdateContainerView;
         }
 
@@ -37,6 +39,7 @@ public class ItemContainerView : MonoBehaviour
 
         UpdateContainerView();
 
+        //Debug.Log($"Subscribing {name}[{gameObject.GetInstanceID()}] to {((Component)this.container).name}[{((Component)this.container).gameObject.GetInstanceID()}]");
         container.InventoryUpdated += UpdateContainerView;
     }
 
@@ -54,6 +57,8 @@ public class ItemContainerView : MonoBehaviour
         var targetContainer = targetContainerView.container;
         var otherStack = targetContainer[targetIndex];
         var myStack = container[sourceIndex];
+
+        if (container == targetContainer && sourceIndex == targetIndex) return;
 
         if (otherStack.IsEmpty)
         {

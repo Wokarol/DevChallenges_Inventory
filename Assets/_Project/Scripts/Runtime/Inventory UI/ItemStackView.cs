@@ -10,6 +10,8 @@ public class ItemStackView : MonoBehaviour
 
     public ItemStack? ShownStack { get; private set; }
 
+    public bool IsEmpty => ShownStack?.IsEmpty ?? true;
+
     public void Display(ItemStack? stack)
     {
         ShownStack = stack;
