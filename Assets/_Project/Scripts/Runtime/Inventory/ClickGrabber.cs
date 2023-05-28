@@ -9,14 +9,14 @@ public class ClickGrabber : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image image;
 
-    private event Action<RectTransform> onClick;
+    private event Action<RectTransform, PointerEventData> onClick;
 
     private void Awake()
     {
         gameObject.SetActive(false);
     }
 
-    public void Show(Action<RectTransform> onClick)
+    public void Show(Action<RectTransform, PointerEventData> onClick)
     {
         gameObject.SetActive(true);
         this.onClick += onClick;
@@ -24,6 +24,8 @@ public class ClickGrabber : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (eventData.button == PointerEventData.InputButton.Middle) return;
+
         gameObject.SetActive(false);
 
         if (!image.canvas.TryGetComponent(out GraphicRaycaster raycaster))
@@ -44,8 +46,10 @@ public class ClickGrabber : MonoBehaviour, IPointerClickHandler
             ? null 
             : results[0].gameObject.transform as RectTransform;
 
-        onClick?.Invoke(clickedItem);
+        var onClickToCall = onClick;
         onClick = null;
+
+        onClickToCall?.Invoke(clickedItem, eventData);
     }
 
     internal void Abort()

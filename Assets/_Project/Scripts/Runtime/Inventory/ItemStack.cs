@@ -27,7 +27,7 @@ public struct ItemStack : IEquatable<ItemStack>
         return HashCode.Combine(Item, Count);
     }
 
-    internal ItemStack CombineWith(ItemStack otherStack)
+    public ItemStack CombineWith(ItemStack otherStack)
     {
         if (otherStack.Item != Item) throw new ArgumentException("The items must match when combining");
 
@@ -35,6 +35,35 @@ public struct ItemStack : IEquatable<ItemStack>
         {
             Item = Item,
             Count = otherStack.Count + Count,
+        };
+    }
+
+    public ItemStack Subtract(int count)
+    {
+        if (Count == count) return Empty;
+
+        return new ItemStack()
+        {
+            Item = Item,
+            Count = Count - count
+        };
+    }
+
+    public ItemStack Add(int count)
+    {
+        return new ItemStack()
+        {
+            Item = Item,
+            Count = Count + count
+        };
+    }
+
+    public ItemStack WithCount(int count)
+    {
+        return new ItemStack()
+        {
+            Item = Item,
+            Count = count
         };
     }
 

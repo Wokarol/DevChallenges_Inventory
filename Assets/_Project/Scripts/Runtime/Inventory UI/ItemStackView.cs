@@ -15,7 +15,7 @@ public class ItemStackView : MonoBehaviour
     public void Display(ItemStack? stack)
     {
         ShownStack = stack;
-        if (stack == null || stack.Value.Item == null)
+        if (stack == null || stack.Value.Item == null || stack.Value.Count == 0)
         {
             itemIcon.enabled = false;
             itemIcon.sprite = null;
@@ -27,7 +27,7 @@ public class ItemStackView : MonoBehaviour
             var count = stack.Value.Count;
             itemIcon.enabled = true;
             itemIcon.sprite = item.Sprite;
-            stackCount.text = count == 0 ? "" : count.ToString();
+            stackCount.text = count <= 1 ? "" : count.ToString();
         }
     }
 }

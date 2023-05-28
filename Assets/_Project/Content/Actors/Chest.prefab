@@ -57,6 +57,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7e78f52e615021499c1676a5ef63533, type: 3}
+--- !u!4 &6684605201126734473 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1088619777609266644, guid: f7e78f52e615021499c1676a5ef63533, type: 3}
+  m_PrefabInstance: {fileID: 6043814104433315677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6854084156942676492 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f7e78f52e615021499c1676a5ef63533, type: 3}
@@ -99,6 +104,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05fcc4de497d6d640bd971f81eeeb8e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotCount: 10
+  startingItems: []
 --- !u!114 &7061536107237771180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,5 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bb414fb4d891164ea81833acefd70e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  label: 
   inventory: {fileID: 4522984619343612575}
   chestView: {fileID: 652186098997151457, guid: 744458e4137f81447afb22ffedf8b691, type: 3}
+  chestLid: {fileID: 6684605201126734473}

@@ -26,6 +26,6 @@ public class Player : MonoBehaviour
     }
     public void OpenChest(Chest chest)
     {
-        inventoryView.OpenWithSecondMenu(chest.View, v => v.BindTo(chest));
+        inventoryView.OpenWithSecondMenu(chest.View, v => v.BindTo(chest), chest.CloseChest);
     }
 }

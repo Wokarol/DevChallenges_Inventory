@@ -1,7 +1,5 @@
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryView : MonoBehaviour
@@ -15,14 +13,15 @@ public class InventoryView : MonoBehaviour
 
     public bool IsOpen { get; private set; }
 
-    private GameObject mountedPanel = null;
+    private IInteractibleView mountedPanel = null;
+    private Action closeCallback = null;
 
     private void Awake()
     {
         PutPanelBelow();
     }
 
-    public void OpenAlone()
+    public void OpenAlone(Action onClose = null)
     {
         playerInventorySection.anchorMin = new(0.25f, 0);
         playerInventorySection.anchorMax = new(0.75f, 1);
@@ -33,7 +32,7 @@ public class InventoryView : MonoBehaviour
         IsOpen = true;
     }
 
-    public void OpenWithSecondMenu<T>(T view, Action<T> onBind) where T : Component
+    public void OpenWithSecondMenu<T>(T view, Action<T> onBind, Action onClose = null) where T : Component, IInteractibleView
     {
         playerInventorySection.anchorMin = new(0, 0);
         playerInventorySection.anchorMax = new(0.5f, 1);
@@ -44,12 +43,28 @@ public class InventoryView : MonoBehaviour
 
         SlidePanelIn();
         IsOpen = true;
+
+        closeCallback = onClose;
     }
 
     public void HideInventory()
     {
+        closeCallback?.Invoke();
+        closeCallback = null;
+
         SlidePanelOut();
         IsOpen = false;
+
+        playerInventoryView.AbortInteraction();
+        mountedPanel?.AbortInteraction();
+    }
+
+    public void HideInventoryIfIdle()
+    {
+        if (!playerInventoryView.IsIdle()) return;
+        if (!mountedPanel.IsIdle()) return;
+
+        HideInventory();
     }
 
     public void BindPlayerInventoryTo(Inventory inventory)
@@ -78,10 +93,10 @@ public class InventoryView : MonoBehaviour
         fullPanel.anchorMax = new(1, 0);
     }
 
-    private T MountSecondaryView<T>(T view) where T : Component
+    private T MountSecondaryView<T>(T view) where T : Component, IInteractibleView
     {
         var createdView = Instantiate(view, secondarySection);
-        mountedPanel = createdView.gameObject;
+        mountedPanel = createdView;
         return createdView;
     }
 
@@ -89,7 +104,7 @@ public class InventoryView : MonoBehaviour
     {
         if (mountedPanel == null) return;
 
-        Destroy(mountedPanel);
+        Destroy(((Component)mountedPanel).gameObject);
         mountedPanel = null;
     }
 }

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ItemContainerView : MonoBehaviour
 {
@@ -18,6 +20,7 @@ public class ItemContainerView : MonoBehaviour
 
     private InteractionState currentState = InteractionState.None;
     private int heldItemIndex = -1;
+    private int heldItemCount = 0;
     private ItemStackView draggedImage;
 
     private void Awake()
@@ -66,22 +69,37 @@ public class ItemContainerView : MonoBehaviour
         container.InventoryUpdated += UpdateContainerView;
     }
 
-    public void OnSlotClick(int index, Vector3 slotPosition)
+    public void OnSlotClick(int index, Vector3 slotPosition, bool rightClick)
     {
-        if (container[index].IsEmpty) return;
+        var stack = container[index];
+        if (stack.IsEmpty) return;
+
         SwitchState(InteractionState.HoldingItem);
         heldItemIndex = index;
+        heldItemCount = rightClick ? stack.Count / 2 : stack.Count;
 
         draggedImage = helpers.BorrowUIItem();
         draggedImage.transform.position = slotPosition;
 
-        draggedImage.Display(container[index]);
+        draggedImage.Display(new ItemStack() { Item = stack.Item, Count = heldItemCount });
         UpdateContainerView();
 
         helpers.AwaitClick(ClickedWhileDragging);
     }
 
-    public void TryMoveItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)
+    public bool IsIdle()
+    {
+        return currentState == InteractionState.None;
+    }
+
+    public void AbortInteraction()
+    {
+        SwitchState(InteractionState.None);
+        helpers.AwaitClickAbort();
+        UpdateContainerView();
+    }
+
+    private void TryMoveItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)
     {
         var targetContainer = targetContainerView.container;
         var otherStack = targetContainer[targetIndex];
@@ -91,39 +109,90 @@ public class ItemContainerView : MonoBehaviour
 
         if (otherStack.IsEmpty)
         {
-            targetContainer[targetIndex] = myStack;
-            container[sourceIndex] = ItemStack.Empty;
+            targetContainer[targetIndex] = myStack.WithCount(heldItemCount);
+            container[sourceIndex] = myStack.Subtract(heldItemCount);
         }
         else
         {
             if (otherStack.Item == myStack.Item)
             {
-                container[sourceIndex] = ItemStack.Empty;
-                targetContainer[targetIndex] = myStack.CombineWith(otherStack);
+                targetContainer[targetIndex] = otherStack.CombineWith(myStack.WithCount(heldItemCount));
+                container[sourceIndex] = myStack.Subtract(heldItemCount);
             }
             else
             {
-                container[sourceIndex] = otherStack;
-                targetContainer[targetIndex] = myStack;
+                (container[sourceIndex], targetContainer[targetIndex]) = (otherStack, myStack);
             }
         }
     }
 
-    private void ClickedWhileDragging(RectTransform clickedTarget)
+    private bool TryMoveSingleItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)
     {
-        var otherSlot = clickedTarget == null 
-            ? null 
+        var targetContainer = targetContainerView.container;
+        var otherStack = targetContainer[targetIndex];
+        var myStack = container[sourceIndex];
+
+        if (container == targetContainer && sourceIndex == targetIndex) return false;
+
+        if (otherStack.IsEmpty)
+        {
+            targetContainer[targetIndex] = myStack.WithCount(1);
+            container[sourceIndex] = myStack.Subtract(1);
+            return true;
+        }
+        else
+        {
+            if (otherStack.Item == myStack.Item)
+            {
+                targetContainer[targetIndex] = otherStack.Add(1);
+                container[sourceIndex] = myStack.Subtract(1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void ClickedWhileDragging(RectTransform clickedTarget, PointerEventData pointerData)
+    {
+        var otherSlot = clickedTarget == null
+            ? null
             : clickedTarget.GetComponentInParent<ItemSlotView>();
 
-        if (otherSlot != null)
+        if (pointerData.button == PointerEventData.InputButton.Left)
         {
-            TryMoveItem(heldItemIndex, otherSlot.Owner, otherSlot.Index);
+            if (otherSlot != null)
+            {
+                TryMoveItem(heldItemIndex, otherSlot.Owner, otherSlot.Index);
+            }
+
+            SwitchState(InteractionState.None);
+        }
+        else
+        {
+            if (otherSlot != null)
+            {
+                bool isTheSameSlot = otherSlot.Owner.container == container && otherSlot.Index == heldItemIndex;
+                bool movedItem = isTheSameSlot
+                    ? true
+                    : TryMoveSingleItem(heldItemIndex, otherSlot.Owner, otherSlot.Index);
+
+                if (movedItem)
+                {
+                    heldItemCount -= 1;
+                    draggedImage.Display(container[heldItemIndex].WithCount(heldItemCount));
+                }
+            }
+
+            if (container[heldItemIndex].IsEmpty)
+            {
+                SwitchState(InteractionState.None);
+            }
+            else
+            {
+                helpers.AwaitClick(ClickedWhileDragging);
+            }
         }
 
-        helpers.ReturnUIItem(draggedImage);
-        draggedImage = null;
-
-        SwitchState(InteractionState.None);
         UpdateContainerView();
     }
 
@@ -131,13 +200,18 @@ public class ItemContainerView : MonoBehaviour
     {
         for (int i = 0; i < container.SlotCount; i++)
         {
+            var stack = container[i];
+
             if (heldItemIndex == i)
             {
-                slotViews[i].Display(ItemStack.Empty);
+                slotViews[i].Display(new ItemStack()
+                {
+                    Item = stack.Item,
+                    Count = stack.Count - heldItemCount,
+                });
                 continue;
             }
 
-            var stack = container[i];
             slotViews[i].Display(stack);
         }
     }
@@ -150,6 +224,12 @@ public class ItemContainerView : MonoBehaviour
         if (newState == InteractionState.None)
         {
             heldItemIndex = -1;
+        }
+
+        if (newState == InteractionState.None && oldState == InteractionState.HoldingItem)
+        {
+            helpers.ReturnUIItem(draggedImage);
+            draggedImage = null;
         }
     }
 }

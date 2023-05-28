@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Pool;
 
 public class InventoryHelpers : MonoBehaviour
@@ -31,7 +32,7 @@ public class InventoryHelpers : MonoBehaviour
         pool.Release(item);
     }
 
-    public void AwaitClick(Action<RectTransform> clickCallback)
+    public void AwaitClick(Action<RectTransform, PointerEventData> clickCallback)
     {
         clickGrabber.Show(clickCallback);
     }

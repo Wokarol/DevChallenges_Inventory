@@ -4,14 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlotView : MonoBehaviour, IPointerClickHandler
+public class ItemSlotView : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private ItemStackView stackView;
 
     private int index = -1;
     private ItemContainerView owner;
-
-    private ItemStackView draggedImage = null;
 
     public int Index => index;
     public ItemContainerView Owner => owner;
@@ -27,8 +25,11 @@ public class ItemSlotView : MonoBehaviour, IPointerClickHandler
         stackView.Display(stack);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerDown(PointerEventData eventData)
     {
-        owner.OnSlotClick(index, stackView.transform.position);
+        if (eventData.button == PointerEventData.InputButton.Middle) return;
+
+        bool rightClick = eventData.button == PointerEventData.InputButton.Right;
+        owner.OnSlotClick(index, stackView.transform.position, rightClick);
     }
 }
