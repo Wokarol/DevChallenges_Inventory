@@ -7,6 +7,7 @@ using UnityEngine;
 public class InventoryView : MonoBehaviour
 {
     [SerializeField] private RectTransform fullPanel = null;
+    [SerializeField] private GameObject clickBlockerPane = null;
     [SerializeField] private ItemContainerView playerInventoryView = null;
     [Space]
     [SerializeField] private RectTransform playerInventorySection = null;
@@ -58,6 +59,7 @@ public class InventoryView : MonoBehaviour
 
     private void SlidePanelIn()
     {
+        clickBlockerPane.SetActive(true);
         fullPanel.DOAnchorMin(Vector2.zero, 0.3f);
         fullPanel.DOAnchorMax(Vector2.one, 0.3f);
     }
@@ -65,11 +67,13 @@ public class InventoryView : MonoBehaviour
     private void SlidePanelOut()
     {
         fullPanel.DOAnchorMin(new(0, -1f), 0.3f);
-        fullPanel.DOAnchorMax(new(1, 0), 0.3f);
+        fullPanel.DOAnchorMax(new(1, 0), 0.3f)
+            .OnComplete(() => clickBlockerPane.SetActive(false));
     }
 
     private void PutPanelBelow()
     {
+        clickBlockerPane.SetActive(false);
         fullPanel.anchorMin = new(0, -1f);
         fullPanel.anchorMax = new(1, 0);
     }
