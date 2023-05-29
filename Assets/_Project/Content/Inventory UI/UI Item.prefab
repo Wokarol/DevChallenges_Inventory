@@ -105,6 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemIcon: {fileID: 3364329867768339427}
   stackCount: {fileID: 838980755649342915}
+  hasAnimations: 1
 --- !u!1 &2379760628683463041
 GameObject:
   m_ObjectHideFlags: 0

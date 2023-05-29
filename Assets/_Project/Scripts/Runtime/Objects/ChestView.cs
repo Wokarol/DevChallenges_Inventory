@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine;
 
-public class ChestView : MonoBehaviour, IInteractibleView
+public class ChestView : MonoBehaviour, IInventoryMenuView
 {
     [SerializeField] private TextMeshProUGUI chestLabel = null;
     [SerializeField] private ItemContainerView containerView = null;

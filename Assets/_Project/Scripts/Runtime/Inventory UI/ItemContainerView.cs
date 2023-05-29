@@ -23,6 +23,9 @@ public class ItemContainerView : MonoBehaviour
     private int heldItemCount = 0;
     private ItemStackView draggedImage;
 
+    private bool shouldUpdateView = false;
+    private IItemContainer otherContainer;
+
     private void Awake()
     {
         helpers = GetComponentInParent<InventoryHelpers>();
@@ -31,7 +34,7 @@ public class ItemContainerView : MonoBehaviour
         for (int i = 0; i < slotViews.Length; i++)
         {
             var slotView = slotViews[i];
-            slotView.Display(null);
+            slotView.Display(null, false);
             slotView.Init(i, this);
         }
     }
@@ -44,12 +47,16 @@ public class ItemContainerView : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        if (shouldUpdateView) UpdateContainerView();
+    }
+
     private void OnDestroy()
     {
         if (container != null)
         {
-            //Debug.Log($"Unsubscribing {name}[{gameObject.GetInstanceID()}] from {((Component)this.container).name}[{((Component)this.container).gameObject.GetInstanceID()}]");
-            container.InventoryUpdated -= UpdateContainerView;
+            container.InventoryUpdated -= MarkContainerViewDirty;
         }
     }
 
@@ -57,22 +64,27 @@ public class ItemContainerView : MonoBehaviour
     {
         if (this.container != null)
         {
-            //Debug.Log($"Unsubscribing {name}[{gameObject.GetInstanceID()}] from {((Component)this.container).name}[{((Component)this.container).gameObject.GetInstanceID()}]");
-            container.InventoryUpdated -= UpdateContainerView;
+            container.InventoryUpdated -= MarkContainerViewDirty;
         }
 
         this.container = container;
 
-        UpdateContainerView();
+        MarkContainerViewDirty();
 
-        //Debug.Log($"Subscribing {name}[{gameObject.GetInstanceID()}] to {((Component)this.container).name}[{((Component)this.container).gameObject.GetInstanceID()}]");
-        container.InventoryUpdated += UpdateContainerView;
+        container.InventoryUpdated += MarkContainerViewDirty;
     }
 
     public void OnSlotClick(int index, Vector3 slotPosition, bool rightClick)
     {
         var stack = container[index];
         if (stack.IsEmpty) return;
+
+        if (!rightClick && Input.GetKey(KeyCode.LeftShift))
+        {
+            TryMoveStackToOtherContainer(index);
+            MarkContainerViewDirty();
+            return;
+        }
 
         SwitchState(InteractionState.HoldingItem);
         heldItemIndex = index;
@@ -82,7 +94,7 @@ public class ItemContainerView : MonoBehaviour
         draggedImage.transform.position = slotPosition;
 
         draggedImage.Display(new ItemStack() { Item = stack.Item, Count = heldItemCount });
-        UpdateContainerView();
+        MarkContainerViewDirty();
 
         helpers.AwaitClick(ClickedWhileDragging);
     }
@@ -96,21 +108,28 @@ public class ItemContainerView : MonoBehaviour
     {
         SwitchState(InteractionState.None);
         helpers.AwaitClickAbort();
-        UpdateContainerView();
+        MarkContainerViewDirty();
     }
 
-    private void TryMoveItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)
+    private void TryMoveStackToOtherContainer(int sourceIndex)
+    {
+        // TODO: Implement
+        // Get hold of the other container... somehow. Probably by adding needed methods in the view interface
+    }
+
+    private bool TryMoveItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)
     {
         var targetContainer = targetContainerView.container;
         var otherStack = targetContainer[targetIndex];
         var myStack = container[sourceIndex];
 
-        if (container == targetContainer && sourceIndex == targetIndex) return;
+        if (container == targetContainer && sourceIndex == targetIndex) return true;
 
         if (otherStack.IsEmpty)
         {
             targetContainer[targetIndex] = myStack.WithCount(heldItemCount);
             container[sourceIndex] = myStack.Subtract(heldItemCount);
+            return true;
         }
         else
         {
@@ -118,12 +137,16 @@ public class ItemContainerView : MonoBehaviour
             {
                 targetContainer[targetIndex] = otherStack.CombineWith(myStack.WithCount(heldItemCount));
                 container[sourceIndex] = myStack.Subtract(heldItemCount);
+                return true;
             }
-            else
+            else if (heldItemCount == myStack.Count)
             {
                 (container[sourceIndex], targetContainer[targetIndex]) = (otherStack, myStack);
+                return true;
             }
         }
+
+        return false;
     }
 
     private bool TryMoveSingleItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)
@@ -158,14 +181,24 @@ public class ItemContainerView : MonoBehaviour
             ? null
             : clickedTarget.GetComponentInParent<ItemSlotView>();
 
+        if (otherSlot == null)
+        {
+            helpers.AwaitClick(ClickedWhileDragging);
+            return;
+        }
+
         if (pointerData.button == PointerEventData.InputButton.Left)
         {
+            bool movedItem = false;
             if (otherSlot != null)
             {
-                TryMoveItem(heldItemIndex, otherSlot.Owner, otherSlot.Index);
+                movedItem = TryMoveItem(heldItemIndex, otherSlot.Owner, otherSlot.Index);
             }
 
-            SwitchState(InteractionState.None);
+            if (movedItem)
+                SwitchState(InteractionState.None);
+            else
+                helpers.AwaitClick(ClickedWhileDragging);
         }
         else
         {
@@ -183,7 +216,7 @@ public class ItemContainerView : MonoBehaviour
                 }
             }
 
-            if (container[heldItemIndex].IsEmpty)
+            if (container[heldItemIndex].IsEmpty || heldItemCount == 0)
             {
                 SwitchState(InteractionState.None);
             }
@@ -193,11 +226,16 @@ public class ItemContainerView : MonoBehaviour
             }
         }
 
-        UpdateContainerView();
+        MarkContainerViewDirty();
     }
 
+    private void MarkContainerViewDirty()
+    {
+        shouldUpdateView = true;
+    }
     private void UpdateContainerView()
     {
+        shouldUpdateView = false;
         for (int i = 0; i < container.SlotCount; i++)
         {
             var stack = container[i];
@@ -208,11 +246,11 @@ public class ItemContainerView : MonoBehaviour
                 {
                     Item = stack.Item,
                     Count = stack.Count - heldItemCount,
-                });
+                }, true);
                 continue;
             }
 
-            slotViews[i].Display(stack);
+            slotViews[i].Display(stack, false);
         }
     }
 

@@ -1,4 +1,4 @@
-﻿public interface IInteractibleView
+﻿public interface IInventoryMenuView
 {
     void AbortInteraction();
     bool IsIdle();

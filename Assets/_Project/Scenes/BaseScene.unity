@@ -2962,6 +2962,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 176289920}
     m_Modifications:
+    - target: {fileID: 637096623829701441, guid: 9bc02df583bf5864ba4747bcd58e80dc, type: 3}
+      propertyPath: hasAnimations
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 805110493553960021, guid: 9bc02df583bf5864ba4747bcd58e80dc, type: 3}
       propertyPath: m_Name
       value: UI Item

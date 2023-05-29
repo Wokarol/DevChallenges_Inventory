@@ -13,7 +13,7 @@ public class InventoryView : MonoBehaviour
 
     public bool IsOpen { get; private set; }
 
-    private IInteractibleView mountedPanel = null;
+    private IInventoryMenuView mountedPanel = null;
     private Action closeCallback = null;
 
     private void Awake()
@@ -32,13 +32,14 @@ public class InventoryView : MonoBehaviour
         IsOpen = true;
     }
 
-    public void OpenWithSecondMenu<T>(T view, Action<T> onBind, Action onClose = null) where T : Component, IInteractibleView
+    public void OpenWithSecondMenu<T>(T view, Action<T> onBind, Action onClose = null) where T : Component, IInventoryMenuView
     {
         playerInventorySection.anchorMin = new(0, 0);
         playerInventorySection.anchorMax = new(0.5f, 1);
 
         UnmountCurrentSecondaryView();
         var panel = MountSecondaryView(view);
+
         onBind(panel);
 
         SlidePanelIn();
@@ -93,7 +94,7 @@ public class InventoryView : MonoBehaviour
         fullPanel.anchorMax = new(1, 0);
     }
 
-    private T MountSecondaryView<T>(T view) where T : Component, IInteractibleView
+    private T MountSecondaryView<T>(T view) where T : Component, IInventoryMenuView
     {
         var createdView = Instantiate(view, secondarySection);
         mountedPanel = createdView;
