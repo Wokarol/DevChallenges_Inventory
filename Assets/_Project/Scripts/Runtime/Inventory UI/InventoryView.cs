@@ -15,10 +15,13 @@ public class InventoryView : MonoBehaviour
 
     private IInventoryMenuView mountedPanel = null;
     private Action closeCallback = null;
+    private Inventory playerInventory;
 
     private void Awake()
     {
         PutPanelBelow();
+
+        playerInventoryView.OtherContainerFindStrategy = FindOtherContainerForPlayerPanelStrategy;
     }
 
     public void OpenAlone(Action onClose = null)
@@ -70,6 +73,7 @@ public class InventoryView : MonoBehaviour
 
     public void BindPlayerInventoryTo(Inventory inventory)
     {
+        playerInventory = inventory;
         playerInventoryView.BindTo(inventory);
     }
 
@@ -97,6 +101,7 @@ public class InventoryView : MonoBehaviour
     private T MountSecondaryView<T>(T view) where T : Component, IInventoryMenuView
     {
         var createdView = Instantiate(view, secondarySection);
+        createdView.Inject(FindOtherContainerForSecondaryPanelStrategy);
         mountedPanel = createdView;
         return createdView;
     }
@@ -107,5 +112,20 @@ public class InventoryView : MonoBehaviour
 
         Destroy(((Component)mountedPanel).gameObject);
         mountedPanel = null;
+    }
+
+    private IItemContainer FindOtherContainerForSecondaryPanelStrategy(ItemStack stack)
+    {
+        if (playerInventory.CanTakeStack(stack))
+        {
+            return playerInventory;
+        }
+
+        return null;
+    }
+
+    private IItemContainer FindOtherContainerForPlayerPanelStrategy(ItemStack stack)
+    {
+        return mountedPanel.GetBestContainerFor(stack);
     }
 }

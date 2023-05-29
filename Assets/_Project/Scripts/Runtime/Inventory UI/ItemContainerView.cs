@@ -7,6 +7,8 @@ using UnityEngine.EventSystems;
 
 public class ItemContainerView : MonoBehaviour
 {
+    public Func<ItemStack, IItemContainer> OtherContainerFindStrategy;
+
     enum InteractionState
     {
         None,
@@ -24,7 +26,6 @@ public class ItemContainerView : MonoBehaviour
     private ItemStackView draggedImage;
 
     private bool shouldUpdateView = false;
-    private IItemContainer otherContainer;
 
     private void Awake()
     {
@@ -115,6 +116,14 @@ public class ItemContainerView : MonoBehaviour
     {
         // TODO: Implement
         // Get hold of the other container... somehow. Probably by adding needed methods in the view interface
+        var myStack = container[sourceIndex];
+        var otherContainer = OtherContainerFindStrategy(myStack);
+
+        if (otherContainer != null)
+        {
+            otherContainer.TakeStack(myStack);
+            container[sourceIndex] = ItemStack.Empty;
+        }
     }
 
     private bool TryMoveItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)

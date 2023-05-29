@@ -8,4 +8,7 @@ public interface IItemContainer
     int SlotCount { get; }
 
     event Action InventoryUpdated;
+
+    bool CanTakeStack(ItemStack stack);
+    void TakeStack(ItemStack myStack);
 }
