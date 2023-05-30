@@ -11,5 +11,6 @@ public interface IItemContainer
 
     bool CanTakeStack(ItemStack stack);
     int MoveAllSimilarItemsToSlot(int heldItemIndex);
+    void SortItems();
     void TakeStack(ItemStack myStack);
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class ItemContainerView : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class ItemContainerView : MonoBehaviour
     }
 
     [SerializeField] private CommonUISettings settings = null;
+    [SerializeField] private Button sortButton = null;
 
     private InventoryHelpers helpers;
 
@@ -63,6 +65,11 @@ public class ItemContainerView : MonoBehaviour
             var slotView = slotViews[i];
             slotView.Display(null, false);
             slotView.Init(i, this);
+        }
+
+        if (sortButton != null)
+        {
+            sortButton.onClick.AddListener(SortItems);
         }
     }
 
@@ -302,6 +309,11 @@ public class ItemContainerView : MonoBehaviour
         }
 
         MarkContainerViewDirty();
+    }
+
+    private void SortItems()
+    {
+        container.SortItems();
     }
 
     private void RerenderStackInHand()

@@ -112,4 +112,14 @@ public class Inventory : MonoBehaviour, IItemContainer
 
         return this[index].Count;
     }
+
+    public void SortItems()
+    {
+        items = items
+            .OrderBy(s => s.Item == null)
+            .ThenBy(s => s.Item == null ? "" : s.Item.DisplayName)
+            .ThenByDescending(s => s.Count)
+            .ToArray();
+        InventoryUpdated?.Invoke();
+    }
 }
