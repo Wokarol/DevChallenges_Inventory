@@ -1,41 +1,58 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public struct ItemStack : IEquatable<ItemStack>
 {
     public Item Item;
-    public int Count;
+    [SerializeField] private int count;
 
     public static ItemStack Empty => default;
 
     public readonly bool IsEmpty => Item == null;
+    public readonly bool IsFull => Item != null && count == Item.MaxStackSize;
 
-    public override readonly bool Equals(object obj)
+    public int Count
+    {
+        get => count; 
+        set
+        {
+            if (Item != null && value > Item.MaxStackSize)
+                Debug.LogError("GOING OVER MAX STACK!");
+            count = value;
+        }
+    }
+
+    public override bool Equals(object obj)
     {
         return obj is ItemStack stack && Equals(stack);
     }
 
-    public readonly bool Equals(ItemStack other)
+    public bool Equals(ItemStack other)
     {
         return EqualityComparer<Item>.Default.Equals(Item, other.Item) &&
                Count == other.Count;
     }
 
-    public override readonly int GetHashCode()
+    public override int GetHashCode()
     {
         return HashCode.Combine(Item, Count);
     }
 
-    public ItemStack CombineWith(ItemStack otherStack)
+    public ItemStack CombineWith(ItemStack otherStack, out ItemStack remainingStack)
     {
         if (otherStack.Item != Item) throw new ArgumentException("The items must match when combining");
 
-        return new ItemStack()
+        int total = otherStack.Count + Count;
+        if (total > Item.MaxStackSize)
         {
-            Item = Item,
-            Count = otherStack.Count + Count,
-        };
+            remainingStack = otherStack.WithCount(total - Item.MaxStackSize);
+            return this.WithCount(Item.MaxStackSize);
+        }
+
+        remainingStack = ItemStack.Empty;
+        return this.WithCount(total);
     }
 
     public ItemStack Subtract(int count)

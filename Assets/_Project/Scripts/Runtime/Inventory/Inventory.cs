@@ -39,7 +39,17 @@ public class Inventory : MonoBehaviour, IItemContainer
 
     public bool CanTakeStack(ItemStack stack)
     {
-        return items.Any(s => (s.Item = stack.Item) || s.IsEmpty);
+        bool hasEmptySlot = items.Any(s => s.IsEmpty);
+
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i].Item != stack.Item) continue;
+
+            bool stackFitWhenCombined = (items[i].Count + stack.Count) < stack.Item.MaxStackSize;
+            if (stackFitWhenCombined) return true;
+        }
+
+        return hasEmptySlot;
     }
 
     public void TakeStack(ItemStack stack)
@@ -48,11 +58,15 @@ public class Inventory : MonoBehaviour, IItemContainer
         {
             if (this[i].Item == stack.Item)
             {
-                this[i] = this[i].CombineWith(stack);
+                this[i] = this[i].CombineWith(stack, out var remainingStack);
+                if (!remainingStack.IsEmpty)
+                {
+                    stack = remainingStack;
+                    break;
+                }
                 return;
             }
         }
-
 
         for (int i = 0; i < items.Length; i++)
         {
@@ -67,14 +81,32 @@ public class Inventory : MonoBehaviour, IItemContainer
     public int MoveAllSimilarItemsToSlot(int index)
     {
         var myStack = this[index];
+
+        // We check all non-full stacks first
         for (int i = 0; i < items.Length; i++)
         {
-            if (i == index) continue;
+            if (i == index || items[i].IsFull) continue;
 
             if (myStack.Item == items[i].Item)
             {
-                this[index] = this[index].CombineWith(items[i]);
-                items[i] = ItemStack.Empty;
+                this[index] = this[index].CombineWith(items[i], out var remainingStack);
+                items[i] = remainingStack;
+
+                if (!remainingStack.IsEmpty) break;
+            }
+        }
+
+        // We do... the exact same again, but for full stacks
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (i == index || !items[i].IsFull) continue;
+
+            if (myStack.Item == items[i].Item)
+            {
+                this[index] = this[index].CombineWith(items[i], out var remainingStack);
+                items[i] = remainingStack;
+
+                if (!remainingStack.IsEmpty) break;
             }
         }
 

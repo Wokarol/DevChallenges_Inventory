@@ -116,12 +116,7 @@ public class InventoryView : MonoBehaviour
 
     private IItemContainer FindOtherContainerForSecondaryPanelStrategy(ItemStack stack)
     {
-        if (playerInventory.CanTakeStack(stack))
-        {
-            return playerInventory;
-        }
-
-        return null;
+        return playerInventory;
     }
 
     private IItemContainer FindOtherContainerForPlayerPanelStrategy(ItemStack stack)

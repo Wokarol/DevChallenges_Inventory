@@ -13,6 +13,29 @@ public class ItemContainerView : MonoBehaviour
         HoldingItem,
     }
 
+    readonly struct MoveResult
+    { 
+        enum MoveResultType { Failed, Moved, PartiallyMoved }
+
+        private readonly MoveResultType type;
+        public readonly int LeftInHand;
+
+        private MoveResult(MoveResultType type, int leftInHand)
+        {
+            this.type = type;
+            LeftInHand = leftInHand;
+        }
+
+        public readonly bool HasFailed => type == MoveResultType.Failed;
+        public readonly bool WasMoved => type == MoveResultType.Moved;
+        public readonly bool WasPartiallyMoved => type == MoveResultType.PartiallyMoved;
+
+
+        public static readonly MoveResult Failed = new(MoveResultType.Failed, 0);
+        public static readonly MoveResult Moved = new(MoveResultType.Moved, 0);
+        public static MoveResult PartiallyMoved(int leftInHand) => new(MoveResultType.PartiallyMoved, leftInHand);
+    }
+
     [SerializeField] private CommonUISettings settings = null;
 
     private InventoryHelpers helpers;
@@ -119,48 +142,61 @@ public class ItemContainerView : MonoBehaviour
 
     private void TryMoveStackToOtherContainer(int sourceIndex)
     {
-        // TODO: Implement
-        // Get hold of the other container... somehow. Probably by adding needed methods in the view interface
         var myStack = container[sourceIndex];
         var otherContainer = OtherContainerFindStrategy(myStack);
 
         if (otherContainer != null)
         {
+            if (!otherContainer.CanTakeStack(myStack)) return;
+
             otherContainer.TakeStack(myStack);
-            container[sourceIndex] = ItemStack.Empty;
+            container[sourceIndex] = ItemStack.Empty; 
         }
     }
 
-    private bool TryMoveItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)
+    private MoveResult TryMoveItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)
     {
         var targetContainer = targetContainerView.container;
         var otherStack = targetContainer[targetIndex];
         var myStack = container[sourceIndex];
 
-        if (container == targetContainer && sourceIndex == targetIndex) return true;
+        if (container == targetContainer && sourceIndex == targetIndex) return MoveResult.Moved;
 
         if (otherStack.IsEmpty)
         {
             targetContainer[targetIndex] = myStack.WithCount(heldItemCount);
             container[sourceIndex] = myStack.Subtract(heldItemCount);
-            return true;
+            return MoveResult.Moved;
         }
         else
         {
             if (otherStack.Item == myStack.Item)
             {
-                targetContainer[targetIndex] = otherStack.CombineWith(myStack.WithCount(heldItemCount));
-                container[sourceIndex] = myStack.Subtract(heldItemCount);
-                return true;
+                if (otherStack.IsFull)
+                {
+                    (container[sourceIndex], targetContainer[targetIndex]) = (otherStack, myStack);
+                    return MoveResult.PartiallyMoved(otherStack.Count);
+                }
+
+                var itemsInHand = myStack.WithCount(heldItemCount);
+                var newOtherStack = otherStack.CombineWith(itemsInHand, out var itemsLeftInHand);
+                var newMyStack = myStack.Subtract(heldItemCount - itemsLeftInHand.Count);
+
+                targetContainer[targetIndex] = newOtherStack;
+                container[sourceIndex] = newMyStack;
+                
+                return itemsLeftInHand.Count == 0
+                    ? MoveResult.Moved
+                    : MoveResult.PartiallyMoved(itemsLeftInHand.Count);
             }
             else if (heldItemCount == myStack.Count)
             {
                 (container[sourceIndex], targetContainer[targetIndex]) = (otherStack, myStack);
-                return true;
+                return MoveResult.Moved;
             }
         }
 
-        return false;
+        return MoveResult.Failed;
     }
 
     private bool TryMoveSingleItem(int sourceIndex, ItemContainerView targetContainerView, int targetIndex)
@@ -168,6 +204,8 @@ public class ItemContainerView : MonoBehaviour
         var targetContainer = targetContainerView.container;
         var otherStack = targetContainer[targetIndex];
         var myStack = container[sourceIndex];
+
+        if (otherStack.IsFull) return false;
 
         if (container == targetContainer && sourceIndex == targetIndex) return false;
 
@@ -218,13 +256,21 @@ public class ItemContainerView : MonoBehaviour
 
         if (isLeftClick)
         {
-            bool movedItem = false;
+            bool movedAllItems = false;
             if (otherSlot != null)
             {
-                movedItem = TryMoveItem(heldItemIndex, otherSlot.Owner, otherSlot.Index);
+                var moveResult = TryMoveItem(heldItemIndex, otherSlot.Owner, otherSlot.Index);
+
+                if (moveResult.WasMoved)
+                    movedAllItems = true;
+                else if (moveResult.WasPartiallyMoved)
+                {
+                    heldItemCount = moveResult.LeftInHand;
+                    RerenderStackInHand();
+                }
             }
 
-            if (movedItem)
+            if (movedAllItems)
                 SwitchState(InteractionState.None);
             else
                 helpers.AwaitClick(ClickedWhileDragging);
