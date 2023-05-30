@@ -63,4 +63,21 @@ public class Inventory : MonoBehaviour, IItemContainer
             }
         }
     }
+
+    public int MoveAllSimilarItemsToSlot(int index)
+    {
+        var myStack = this[index];
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (i == index) continue;
+
+            if (myStack.Item == items[i].Item)
+            {
+                this[index] = this[index].CombineWith(items[i]);
+                items[i] = ItemStack.Empty;
+            }
+        }
+
+        return this[index].Count;
+    }
 }

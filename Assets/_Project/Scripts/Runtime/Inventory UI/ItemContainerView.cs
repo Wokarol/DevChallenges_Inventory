@@ -7,13 +7,13 @@ using UnityEngine.EventSystems;
 
 public class ItemContainerView : MonoBehaviour
 {
-    public Func<ItemStack, IItemContainer> OtherContainerFindStrategy;
-
     enum InteractionState
     {
         None,
         HoldingItem,
     }
+
+    [SerializeField] private CommonUISettings settings = null;
 
     private InventoryHelpers helpers;
 
@@ -24,8 +24,11 @@ public class ItemContainerView : MonoBehaviour
     private int heldItemIndex = -1;
     private int heldItemCount = 0;
     private ItemStackView draggedImage;
+    private float slotClockTimestamp = 0;
 
     private bool shouldUpdateView = false;
+    
+    public Func<ItemStack, IItemContainer> OtherContainerFindStrategy;
 
     private void Awake()
     {
@@ -77,6 +80,8 @@ public class ItemContainerView : MonoBehaviour
 
     public void OnSlotClick(int index, Vector3 slotPosition, bool rightClick)
     {
+        slotClockTimestamp = Time.time;
+
         var stack = container[index];
         if (stack.IsEmpty) return;
 
@@ -94,7 +99,7 @@ public class ItemContainerView : MonoBehaviour
         draggedImage = helpers.BorrowUIItem();
         draggedImage.transform.position = slotPosition;
 
-        draggedImage.Display(new ItemStack() { Item = stack.Item, Count = heldItemCount });
+        RerenderStackInHand();
         MarkContainerViewDirty();
 
         helpers.AwaitClick(ClickedWhileDragging);
@@ -186,9 +191,24 @@ public class ItemContainerView : MonoBehaviour
 
     private void ClickedWhileDragging(RectTransform clickedTarget, PointerEventData pointerData)
     {
+        bool isDoubleClick = Time.time < (slotClockTimestamp + settings.DoubleClickInterval);
+        bool isLeftClick = pointerData.button == PointerEventData.InputButton.Left;
+
         var otherSlot = clickedTarget == null
             ? null
             : clickedTarget.GetComponentInParent<ItemSlotView>();
+
+        bool? sameSlot = otherSlot == null 
+            ? null 
+            : otherSlot.Index == heldItemIndex;
+
+        if (isDoubleClick && isLeftClick && sameSlot == true)
+        {
+            heldItemCount = container.MoveAllSimilarItemsToSlot(heldItemIndex);
+            RerenderStackInHand();
+            helpers.AwaitClick(ClickedWhileDragging);
+            return;
+        }
 
         if (otherSlot == null)
         {
@@ -196,7 +216,7 @@ public class ItemContainerView : MonoBehaviour
             return;
         }
 
-        if (pointerData.button == PointerEventData.InputButton.Left)
+        if (isLeftClick)
         {
             bool movedItem = false;
             if (otherSlot != null)
@@ -221,7 +241,7 @@ public class ItemContainerView : MonoBehaviour
                 if (movedItem)
                 {
                     heldItemCount -= 1;
-                    draggedImage.Display(container[heldItemIndex].WithCount(heldItemCount));
+                    RerenderStackInHand();
                 }
             }
 
@@ -236,6 +256,11 @@ public class ItemContainerView : MonoBehaviour
         }
 
         MarkContainerViewDirty();
+    }
+
+    private void RerenderStackInHand()
+    {
+        draggedImage.Display(container[heldItemIndex].WithCount(heldItemCount));
     }
 
     private void MarkContainerViewDirty()

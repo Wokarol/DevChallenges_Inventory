@@ -10,5 +10,6 @@ public interface IItemContainer
     event Action InventoryUpdated;
 
     bool CanTakeStack(ItemStack stack);
+    int MoveAllSimilarItemsToSlot(int heldItemIndex);
     void TakeStack(ItemStack myStack);
 }
