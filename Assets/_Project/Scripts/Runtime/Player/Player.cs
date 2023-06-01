@@ -8,7 +8,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Inventory inventory;
     [SerializeField] private InventoryView inventoryView;
 
-
     private void Start()
     {
         inventoryView.BindPlayerInventoryTo(inventory);
@@ -27,5 +26,10 @@ public class Player : MonoBehaviour
     public void OpenChest(Chest chest)
     {
         inventoryView.OpenWithSecondMenu(chest.View, v => v.BindTo(chest), chest.CloseChest);
+    }
+
+    internal void OpenFireplace(Fireplace fireplace)
+    {
+        inventoryView.OpenWithSecondMenu(fireplace.View, fireplace.BindToView);
     }
 }
