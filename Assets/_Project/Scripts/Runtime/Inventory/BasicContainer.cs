@@ -7,15 +7,18 @@ public class BasicContainer : IItemContainer
 
     private ItemStack[] items;
 
-    public BasicContainer(int slotCount, List<ItemStack> startingItems)
+    public BasicContainer(int slotCount, List<ItemStack> startingItems = null)
     {
         items = new ItemStack[slotCount];
 
-        int startingItemsIndex = 0;
-        foreach (int i in Enumerable.Range(0, items.Length).OrderBy(v => UnityEngine.Random.value).Take(startingItems.Count))
+        if (startingItems != null)
         {
-            items[i] = startingItems[startingItemsIndex];
-            startingItemsIndex++;
+            int startingItemsIndex = 0;
+            foreach (int i in Enumerable.Range(0, items.Length).OrderBy(v => UnityEngine.Random.value).Take(startingItems.Count))
+            {
+                items[i] = startingItems[startingItemsIndex];
+                startingItemsIndex++;
+            } 
         }
     }
 

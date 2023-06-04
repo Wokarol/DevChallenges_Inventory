@@ -4,9 +4,22 @@ using UnityEngine.EventSystems;
 
 public class Fireplace : MonoBehaviour, IPointerClickHandler
 {
+    [SerializeField] private int cocktopSlotCount = 1;
+    [SerializeField] private int fuelSlotCount = 1;
     [SerializeField] private FireplaceView view;
 
     public FireplaceView View => view;
+
+    private BasicContainer cocktopInputContainer;
+    private BasicContainer cocktopOutputContainer;
+    private BasicContainer fuelContainer;
+
+    private void Awake()
+    {
+        cocktopInputContainer = new(cocktopSlotCount);
+        cocktopOutputContainer = new(cocktopSlotCount);
+        fuelContainer = new(fuelSlotCount);
+    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -15,6 +28,6 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
 
     public void BindToView(FireplaceView view)
     {
-        Debug.LogError("NO BOUND LOGIC IS DONE YET");
+        view.BindTo(cocktopInputContainer, cocktopOutputContainer, fuelContainer);
     }
 }

@@ -3,12 +3,21 @@ using UnityEngine;
 
 public class FireplaceView : MonoBehaviour, IInventoryMenuView
 {
-    [SerializeField] private ItemContainerView cooktopContainerView;
+    [SerializeField] private ItemContainerView cooktopInputContainerView;
+    [SerializeField] private ItemContainerView cooktopOutputContainerView;
     [SerializeField] private ItemContainerView fuelContainerView;
+
+    public void BindTo(BasicContainer cocktopInputContainer, BasicContainer cocktopOutputContainer, BasicContainer fuelContainer)
+    {
+        cooktopInputContainerView.BindTo(cocktopInputContainer);
+        cooktopOutputContainerView.BindTo(cocktopOutputContainer);
+        fuelContainerView.BindTo(fuelContainer);
+    }
 
     public void AbortInteraction()
     {
-        cooktopContainerView.AbortInteraction();
+        cooktopInputContainerView.AbortInteraction();
+        cooktopOutputContainerView.AbortInteraction();
         fuelContainerView.AbortInteraction();
     }
 
@@ -19,12 +28,14 @@ public class FireplaceView : MonoBehaviour, IInventoryMenuView
 
     public void Inject(Func<ItemStack, IItemContainer> bestOtherContainerFinder)
     {
-        cooktopContainerView.OtherContainerFindStrategy = bestOtherContainerFinder;
+        cooktopInputContainerView.OtherContainerFindStrategy = bestOtherContainerFinder;
         fuelContainerView.OtherContainerFindStrategy = bestOtherContainerFinder;
     }
 
     public bool IsIdle()
     {
-        return cooktopContainerView.IsIdle() && fuelContainerView.IsIdle();
+        return cooktopInputContainerView.IsIdle() &&
+            cooktopOutputContainerView.IsIdle() &&
+            fuelContainerView.IsIdle();
     }
 }
