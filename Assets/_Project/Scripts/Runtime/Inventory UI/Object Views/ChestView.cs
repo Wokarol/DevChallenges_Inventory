@@ -14,7 +14,7 @@ public class ChestView : MonoBehaviour, IInventoryMenuView
 
     public IItemContainer GetBestContainerFor(ItemStack stack)
     {
-        return chestInventory;
+        return chestInventory.Container;
     }
 
     public void Inject(Func<ItemStack, IItemContainer> otherContainerFindStrategy)
@@ -31,6 +31,6 @@ public class ChestView : MonoBehaviour, IInventoryMenuView
     {
         chestLabel.text = chest.Label;
         chestInventory = chest.Inventory;
-        containerView.BindTo(chestInventory);
+        containerView.BindTo(chestInventory.Container);
     }
 }

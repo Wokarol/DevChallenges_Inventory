@@ -74,7 +74,7 @@ public class InventoryView : MonoBehaviour
     public void BindPlayerInventoryTo(Inventory inventory)
     {
         playerInventory = inventory;
-        playerInventoryView.BindTo(inventory);
+        playerInventoryView.BindTo(inventory.Container);
     }
 
     private void SlidePanelIn()
@@ -116,7 +116,7 @@ public class InventoryView : MonoBehaviour
 
     private IItemContainer FindOtherContainerForSecondaryPanelStrategy(ItemStack stack)
     {
-        return playerInventory;
+        return playerInventory.Container;
     }
 
     private IItemContainer FindOtherContainerForPlayerPanelStrategy(ItemStack stack)
