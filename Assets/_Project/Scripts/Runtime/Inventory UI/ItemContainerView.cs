@@ -156,8 +156,8 @@ public class ItemContainerView : MonoBehaviour
         {
             if (!otherContainer.CanTakeStack(myStack)) return;
 
-            otherContainer.TakeStack(myStack);
-            container[sourceIndex] = ItemStack.Empty; 
+            otherContainer.TakeStack(myStack, out var remainingStack);
+            container[sourceIndex] = remainingStack; 
         }
     }
 

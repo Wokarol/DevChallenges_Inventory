@@ -37,45 +37,58 @@ public class Inventory : MonoBehaviour, IItemContainer
         }
     }
 
-    public bool CanTakeStack(ItemStack stack)
+    public bool CanTakeStack(ItemStack stack, bool onlyFully = false)
     {
-        bool hasEmptySlot = items.Any(s => s.IsEmpty);
+        if (items.Any(s => s.IsEmpty))
+            return true;
 
         for (int i = 0; i < items.Length; i++)
         {
             if (items[i].Item != stack.Item) continue;
+            if (items[i].IsFull) continue;
 
-            bool stackFitWhenCombined = (items[i].Count + stack.Count) < stack.Item.MaxStackSize;
-            if (stackFitWhenCombined) return true;
+            bool stackFitWhenCombined = (items[i].Count + stack.Count) <= stack.Item.MaxStackSize;
+
+            if (stackFitWhenCombined || !onlyFully) return true;
         }
 
-        return hasEmptySlot;
+        return false;
     }
 
-    public void TakeStack(ItemStack stack)
+    public void TakeStack(ItemStack stack, out ItemStack remainingStack)
     {
         for (int i = 0; i < items.Length; i++)
         {
-            if (this[i].Item == stack.Item)
+            if (this[i].Item != stack.Item) continue;
+            if (this[i].IsFull) continue;
+
+            this[i] = this[i].CombineWith(stack, out var remainingStackAfterCombine);
+            if (remainingStackAfterCombine.IsEmpty)
             {
-                this[i] = this[i].CombineWith(stack, out var remainingStack);
-                if (!remainingStack.IsEmpty)
-                {
-                    stack = remainingStack;
-                    break;
-                }
+                remainingStack = ItemStack.Empty;
                 return;
             }
+            else
+            {
+                stack = remainingStackAfterCombine;
+            }
         }
+
+        // At this point, we should saturate all non-full stacks and have remaining items in hand
 
         for (int i = 0; i < items.Length; i++)
         {
             if (this[i].IsEmpty)
             {
                 this[i] = stack;
+                remainingStack = ItemStack.Empty;
                 return;
             }
         }
+
+        // At this point we still have items left and no stacks to put them in
+
+        remainingStack = stack;
     }
 
     public int MoveAllSimilarItemsToSlot(int index)

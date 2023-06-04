@@ -9,8 +9,8 @@ public interface IItemContainer
 
     event Action InventoryUpdated;
 
-    bool CanTakeStack(ItemStack stack);
+    bool CanTakeStack(ItemStack stack, bool onlyFully = false);
     int MoveAllSimilarItemsToSlot(int heldItemIndex);
     void SortItems();
-    void TakeStack(ItemStack myStack);
+    void TakeStack(ItemStack myStack, out ItemStack remainingStack);
 }
