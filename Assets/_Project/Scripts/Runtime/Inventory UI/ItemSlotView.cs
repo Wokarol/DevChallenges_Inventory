@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class ItemSlotView : MonoBehaviour, IPointerDownHandler
 {
     [SerializeField] private ItemStackView stackView;
-    [SerializeField] private CanvasGroup grabbedImage;
+    [SerializeField] private CanvasGroup grabbedSlotBackgroundIcon;
 
     private int index = -1;
     private ItemContainerView owner;
@@ -20,8 +20,8 @@ public class ItemSlotView : MonoBehaviour, IPointerDownHandler
 
     private void Awake()
     {
-        if (grabbedImage != null)
-            grabbedImage.alpha = 0;
+        if (grabbedSlotBackgroundIcon != null)
+            grabbedSlotBackgroundIcon.alpha = 0;
     }
 
     public void Init(int index, ItemContainerView owner)
@@ -32,17 +32,17 @@ public class ItemSlotView : MonoBehaviour, IPointerDownHandler
 
     public void Display(ItemStack? stack, bool grabbed)
     {
-        if (wasGrabbed != grabbed && grabbedImage != null)
+        if (wasGrabbed != grabbed && grabbedSlotBackgroundIcon != null)
         {
             if (grabbed)
             {
-                grabbedImage.DOKill();
-                grabbedImage.DOFade(1, 0.2f);
+                grabbedSlotBackgroundIcon.DOKill();
+                grabbedSlotBackgroundIcon.DOFade(1, 0.2f);
             }
             else
             {
-                grabbedImage.DOKill();
-                grabbedImage.DOFade(0, 0.2f);
+                grabbedSlotBackgroundIcon.DOKill();
+                grabbedSlotBackgroundIcon.DOFade(0, 0.2f);
             }
         }
         wasGrabbed = grabbed;

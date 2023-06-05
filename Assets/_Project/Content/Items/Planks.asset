@@ -15,3 +15,6 @@ MonoBehaviour:
   nameOverride: 
   description: 
   sprite: {fileID: 21300000, guid: ad20bc3e851cce240a921a902e858352, type: 3}
+  maxStackSize: 10
+  canBeBurned: 1
+  cookedVersion: {fileID: 0}

@@ -9,6 +9,7 @@ public interface IItemContainer
 
     event Action InventoryUpdated;
 
+    bool AcceptsItem(Item item);
     bool CanTakeStack(ItemStack stack, bool onlyFully = false);
     int MoveAllSimilarItemsToSlot(int heldItemIndex);
     void SortItems();

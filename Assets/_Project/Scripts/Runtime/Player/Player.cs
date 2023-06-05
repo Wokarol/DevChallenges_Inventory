@@ -30,6 +30,6 @@ public class Player : MonoBehaviour
 
     internal void OpenFireplace(Fireplace fireplace)
     {
-        inventoryView.OpenWithSecondMenu(fireplace.View, fireplace.BindToView);
+        inventoryView.OpenWithSecondMenu(fireplace.View, view => view.BindTo(fireplace));
     }
 }

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 public class BasicContainer : IItemContainer
 {
-
     private ItemStack[] items;
+    private Predicate<Item> acceptedItemPredicate;
 
     public BasicContainer(int slotCount, List<ItemStack> startingItems = null)
     {
@@ -22,11 +23,18 @@ public class BasicContainer : IItemContainer
         }
     }
 
+    public BasicContainer AcceptsOnly(Predicate<Item> predicate)
+    {
+        acceptedItemPredicate = predicate;
+        return this;
+    }
+
     public ItemStack this[int index]
     {
         get => items[index];
         set
         {
+            if (value.Item != null && !AcceptsItem(value.Item)) UnityEngine.Debug.LogError("Container were given an illegal item!");
             if (items[index] == value) return;
 
             items[index] = value;
@@ -39,6 +47,8 @@ public class BasicContainer : IItemContainer
 
     public bool CanTakeStack(ItemStack stack, bool onlyFully = false)
     {
+        if (!AcceptsItem(stack.Item)) return false;
+
         if (items.Any(s => s.IsEmpty))
             return true;
 
@@ -140,5 +150,11 @@ public class BasicContainer : IItemContainer
             .ThenByDescending(s => s.Count)
             .ToArray();
         InventoryUpdated?.Invoke();
+    }
+
+    public bool AcceptsItem(Item item)
+    {
+        if (acceptedItemPredicate != null) return acceptedItemPredicate(item);
+        return true;
     }
 }

@@ -55,6 +55,8 @@ public class ItemContainerView : MonoBehaviour
     
     public Func<ItemStack, IItemContainer> OtherContainerFindStrategy;
 
+    public bool OutputOnly { get; set; }
+
     private void Awake()
     {
         helpers = GetComponentInParent<InventoryHelpers>();
@@ -167,6 +169,7 @@ public class ItemContainerView : MonoBehaviour
         var otherStack = targetContainer[targetIndex];
         var myStack = container[sourceIndex];
 
+        if (!targetContainerView.AcceptsItem(myStack.Item)) return MoveResult.Failed;
         if (container == targetContainer && sourceIndex == targetIndex) return MoveResult.Moved;
 
         if (otherStack.IsEmpty)
@@ -212,6 +215,7 @@ public class ItemContainerView : MonoBehaviour
         var otherStack = targetContainer[targetIndex];
         var myStack = container[sourceIndex];
 
+        if (!targetContainerView.AcceptsItem(myStack.Item)) return false;
         if (otherStack.IsFull) return false;
 
         if (container == targetContainer && sourceIndex == targetIndex) return false;
@@ -232,6 +236,12 @@ public class ItemContainerView : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private bool AcceptsItem(Item item)
+    {
+        if (OutputOnly) return false;
+        return container.AcceptsItem(item);
     }
 
     private void ClickedWhileDragging(RectTransform clickedTarget, PointerEventData pointerData)
