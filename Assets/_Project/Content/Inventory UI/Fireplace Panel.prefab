@@ -171,6 +171,8 @@ MonoBehaviour:
   cooktopInputContainerView: {fileID: 6007205327306087280}
   cooktopOutputContainerView: {fileID: 7134474665106668937}
   fuelContainerView: {fileID: 4537494241521089516}
+  cookingTimeBar: {fileID: 6696757585278088131}
+  fuelTimeBar: {fileID: 1306812467283205970}
 --- !u!1 &587442776561385496
 GameObject:
   m_ObjectHideFlags: 0

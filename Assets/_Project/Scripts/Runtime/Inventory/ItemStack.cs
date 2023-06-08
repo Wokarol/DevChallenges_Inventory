@@ -8,6 +8,12 @@ public struct ItemStack : IEquatable<ItemStack>
     public Item Item;
     [SerializeField] private int count;
 
+    public ItemStack(Item item, int count) : this()
+    {
+        Item = item;
+        Count = count;
+    }
+
     public static ItemStack Empty => default;
 
     public readonly bool IsEmpty => Item == null;
