@@ -18,9 +18,12 @@ public class Item : ScriptableObject
     public string Description => description;
     public Sprite Sprite => sprite;
     public int MaxStackSize => maxStackSize;
-    public bool CanBeBurned => burningDuration > 0;
+
+    public bool CanBeCooked => cookedVersion != null;
     public Item CookedVersion => cookedVersion;
     public float CookingDuration => cookingDuration;
 
+
+    public bool CanBeBurned => burningDuration > 0;
     public float BurningDuration => burningDuration;
 }

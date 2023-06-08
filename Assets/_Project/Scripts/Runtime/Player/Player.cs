@@ -32,4 +32,12 @@ public class Player : MonoBehaviour
     {
         inventoryView.OpenWithSecondMenu(fireplace.View, view => view.BindTo(fireplace));
     }
+
+    internal void GiveItem(Item item, int count)
+    {
+        inventory.Container.TakeStack(new(item, count), out var remaining);
+        if (!remaining.IsEmpty) Debug.LogError("Could not store all the taken items!");
+
+        FindObjectOfType<NotificationPanel>().ItemAdded(item, count); // Ugly but quick to write
+    }
 }

@@ -33,7 +33,7 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
         CooktopOutputContainer = new(1);
         FuelContainer = new(1);
 
-        CooktopInputContainer.AcceptsOnly(i => i.CookedVersion != null);
+        CooktopInputContainer.AcceptsOnly(i => i.CanBeCooked);
         FuelContainer.AcceptsOnly(i => i.CanBeBurned);
 
         CooktopInputContainer.InventoryUpdated += CooktopInputContainer_InventoryUpdated;
