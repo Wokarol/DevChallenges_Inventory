@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fish Cooked
   m_EditorClassIdentifier: 
   nameOverride: 
-  description: 
+  description: Like fish, but cooked
   sprite: {fileID: 21300000, guid: edbc91530e3a0fb4eb066d3a7d2a901f, type: 3}
   maxStackSize: 5
   burningDuration: -1

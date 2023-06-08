@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Steak Burned
   m_EditorClassIdentifier: 
   nameOverride: 
-  description: 
+  description: Like steam, but a bit too cooked
   sprite: {fileID: 21300000, guid: 6af9bbd64bdb56b43aa90b14181f3e08, type: 3}
   maxStackSize: 5
   burningDuration: -1

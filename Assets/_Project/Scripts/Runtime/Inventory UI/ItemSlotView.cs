@@ -1,11 +1,9 @@
 ﻿using DG.Tweening;
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-
-public class ItemSlotView : MonoBehaviour, IPointerDownHandler
+public class ItemSlotView : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private ItemStackView stackView;
     [SerializeField] private CanvasGroup grabbedSlotBackgroundIcon;
@@ -56,5 +54,15 @@ public class ItemSlotView : MonoBehaviour, IPointerDownHandler
 
         bool rightClick = eventData.button == PointerEventData.InputButton.Right;
         owner.OnSlotClick(index, stackView.transform.position, rightClick);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        owner.OnSlotEnter(index);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        owner.OnSlotExit(index);
     }
 }

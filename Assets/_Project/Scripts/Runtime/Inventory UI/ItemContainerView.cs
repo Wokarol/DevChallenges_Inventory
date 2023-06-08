@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
@@ -371,5 +372,17 @@ public class ItemContainerView : MonoBehaviour
             helpers.ReturnUIItem(draggedImage);
             draggedImage = null;
         }
+    }
+
+    internal void OnSlotEnter(int index)
+    {
+        if (container[index].IsEmpty) return;
+
+        helpers.ActivateTooltip(container[index].Item);
+    }
+
+    internal void OnSlotExit(int _)
+    {
+        helpers.DeactivateTooltip();
     }
 }

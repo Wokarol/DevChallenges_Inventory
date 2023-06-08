@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Apple
   m_EditorClassIdentifier: 
   nameOverride: 
-  description: 
+  description: Apparently it is used to discover gravity
   sprite: {fileID: 21300000, guid: 600865453ac8a604a8c6879a983983b9, type: 3}
+  maxStackSize: 10
+  burningDuration: -1
+  cookedVersion: {fileID: 0}
+  cookingDuration: 0

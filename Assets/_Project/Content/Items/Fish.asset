@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Fish
   m_EditorClassIdentifier: 
   nameOverride: 
-  description: 
+  description: There's a lot of them in the sea
   sprite: {fileID: 21300000, guid: 3eed641475d4b24499319e4694bea871, type: 3}
   maxStackSize: 5
   burningDuration: -1

@@ -13,5 +13,9 @@ MonoBehaviour:
   m_Name: Iron Ore
   m_EditorClassIdentifier: 
   nameOverride: 
-  description: 
+  description: A piece of rock with iron in it
   sprite: {fileID: 21300000, guid: a0cad4d0e7686374899b18dc3d076cc3, type: 3}
+  maxStackSize: 10
+  burningDuration: -1
+  cookedVersion: {fileID: 0}
+  cookingDuration: 0

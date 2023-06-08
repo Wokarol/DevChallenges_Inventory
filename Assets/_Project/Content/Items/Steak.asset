@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Steak
   m_EditorClassIdentifier: 
   nameOverride: 
-  description: 
+  description: There are no animals here, let's ignore that
   sprite: {fileID: 21300000, guid: 9ce90f8d1705dc447acaa11984eb7894, type: 3}
   maxStackSize: 5
   burningDuration: -1
