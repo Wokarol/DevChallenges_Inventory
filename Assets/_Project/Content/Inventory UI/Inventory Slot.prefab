@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stackView: {fileID: 6624200093485488719}
-  grabbedImage: {fileID: 0}
+  grabbedSlotBackgroundIcon: {fileID: 0}
 --- !u!1001 &5997262961750018318
 PrefabInstance:
   m_ObjectHideFlags: 0

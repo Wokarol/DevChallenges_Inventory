@@ -121,6 +121,7 @@ public class ItemContainerView : MonoBehaviour
         if (!rightClick && Input.GetKey(KeyCode.LeftShift))
         {
             TryMoveStackToOtherContainer(index);
+            helpers.DeactivateTooltip();
             MarkContainerViewDirty();
             return;
         }

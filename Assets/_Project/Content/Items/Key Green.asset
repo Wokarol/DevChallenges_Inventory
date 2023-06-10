@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b232977d060c6b74a9e5969cd1b0c7bb, type: 3}
-  m_Name: Steak Cooked
+  m_Name: Key Green
   m_EditorClassIdentifier: 
-  nameOverride: Steak (Cooked)
-  description: Like steak, but cooked
-  sprite: {fileID: 21300000, guid: 84a5aa09dcec69f4a87b3accdb64e972, type: 3}
-  maxStackSize: 5
+  nameOverride: Key (Green)
+  description: 
+  sprite: {fileID: 553161466, guid: e942bf69a8ee0d84688acd57077bda52, type: 3}
+  maxStackSize: 1
   burningDuration: -1
-  cookedVersion: {fileID: 11400000, guid: 9efe100821f28af4ab3a19ecc658516c, type: 2}
-  cookingDuration: 5
+  cookedVersion: {fileID: 0}
+  cookingDuration: 0

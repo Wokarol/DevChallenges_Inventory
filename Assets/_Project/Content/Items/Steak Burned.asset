@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b232977d060c6b74a9e5969cd1b0c7bb, type: 3}
   m_Name: Steak Burned
   m_EditorClassIdentifier: 
-  nameOverride: 
+  nameOverride: Steak (Burned)
   description: Like steam, but a bit too cooked
   sprite: {fileID: 21300000, guid: 6af9bbd64bdb56b43aa90b14181f3e08, type: 3}
   maxStackSize: 5
