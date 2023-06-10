@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b232977d060c6b74a9e5969cd1b0c7bb, type: 3}
-  m_Name: Fish Cooked
+  m_Name: Fish Burned
   m_EditorClassIdentifier: 
-  nameOverride: Fish (Cooked)
+  nameOverride: Fish (Burned)
   description: Like fish, but cooked
-  sprite: {fileID: 21300000, guid: edbc91530e3a0fb4eb066d3a7d2a901f, type: 3}
+  sprite: {fileID: 21300000, guid: 1fd519d5b30449a419c4d8faf47b03ef, type: 3}
   maxStackSize: 5
   burningDuration: -1
-  cookedVersion: {fileID: 11400000, guid: 38ede44240396814da46744adbf8e41a, type: 2}
-  cookingDuration: 2
+  cookedVersion: {fileID: 0}
+  cookingDuration: 0
