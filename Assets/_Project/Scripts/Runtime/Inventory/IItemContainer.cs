@@ -14,4 +14,6 @@ public interface IItemContainer
     int MoveAllSimilarItemsToSlot(int heldItemIndex);
     void SortItems();
     void TakeStack(ItemStack myStack, out ItemStack remainingStack);
+    bool Contains(ItemStack stack);
+    void Remove(ItemStack stack);
 }

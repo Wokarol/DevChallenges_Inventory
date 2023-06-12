@@ -63,4 +63,16 @@ public class KeyContainer : IItemContainer
 
         storedKey = storedKey.CombineWith(myStack, out remainingStack);
     }
+
+    public bool Contains(ItemStack stack)
+    {
+        if (stack.Item != storedKey.Item) return false;
+        return stack.Count <= storedKey.Count;
+    }
+
+    public void Remove(ItemStack stack)
+    {
+        if (stack.Item != storedKey.Item) throw new Exception();
+        storedKey = storedKey.Subtract(stack.Count);
+    }
 }

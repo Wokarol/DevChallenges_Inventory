@@ -5015,14 +5015,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slotCount: 20
   startingItems:
-  - Item: {fileID: 11400000, guid: 2587bd5025ea6014aa98cae412c2a882, type: 2}
-    count: 10
-  - Item: {fileID: 11400000, guid: 2587bd5025ea6014aa98cae412c2a882, type: 2}
-    count: 5
   - Item: {fileID: 11400000, guid: bd7de3d77e5abf9429b3e78e6c362b1c, type: 2}
     count: 5
   - Item: {fileID: 11400000, guid: bd7de3d77e5abf9429b3e78e6c362b1c, type: 2}
     count: 1
+  - Item: {fileID: 11400000, guid: 2587bd5025ea6014aa98cae412c2a882, type: 2}
+    count: 10
+  - Item: {fileID: 11400000, guid: 2587bd5025ea6014aa98cae412c2a882, type: 2}
+    count: 10
+  - Item: {fileID: 11400000, guid: 2587bd5025ea6014aa98cae412c2a882, type: 2}
+    count: 10
+  - Item: {fileID: 11400000, guid: 2587bd5025ea6014aa98cae412c2a882, type: 2}
+    count: 5
 --- !u!1001 &1401027110
 PrefabInstance:
   m_ObjectHideFlags: 0

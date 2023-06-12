@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using UnityEngine;
 
 public class BasicContainer : IItemContainer
 {
@@ -156,5 +157,26 @@ public class BasicContainer : IItemContainer
     {
         if (acceptedItemPredicate != null) return acceptedItemPredicate(item);
         return true;
+    }
+
+    public bool Contains(ItemStack stack)
+    {
+        return items.Where(s => s.Item == stack.Item).Sum(s => s.Count) >= stack.Count;
+    }
+
+    public void Remove(ItemStack stack)
+    {
+        var itemsToTake = stack.Count;
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i].Item != stack.Item) continue;
+
+            var takenItems = Mathf.Min(itemsToTake, items[i].Count);
+            itemsToTake -= takenItems;
+
+            this[i] = items[i].Subtract(takenItems);
+
+            if (takenItems == 0) break;
+        }
     }
 }

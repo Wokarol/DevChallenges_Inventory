@@ -30,6 +30,8 @@ public struct ItemStack : IEquatable<ItemStack>
         }
     }
 
+    public int SpaceLeft => Item != null ? (Item.MaxStackSize - Count) : int.MaxValue;
+
     public override bool Equals(object obj)
     {
         return obj is ItemStack stack && Equals(stack);
@@ -48,6 +50,12 @@ public struct ItemStack : IEquatable<ItemStack>
 
     public ItemStack CombineWith(ItemStack otherStack, out ItemStack remainingStack)
     {
+        if (IsEmpty)
+        {
+            remainingStack = Empty;
+            return otherStack;
+        }
+
         if (otherStack.Item != Item) throw new ArgumentException("The items must match when combining");
 
         int total = otherStack.Count + Count;
