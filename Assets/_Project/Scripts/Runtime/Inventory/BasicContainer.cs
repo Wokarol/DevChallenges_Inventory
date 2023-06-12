@@ -164,6 +164,11 @@ public class BasicContainer : IItemContainer
         return items.Where(s => s.Item == stack.Item).Sum(s => s.Count) >= stack.Count;
     }
 
+    public int ContainsMany(ItemStack stack)
+    {
+        return items.Where(s => s.Item == stack.Item).Sum(s => s.Count) / stack.Count;
+    }
+
     public void Remove(ItemStack stack)
     {
         var itemsToTake = stack.Count;

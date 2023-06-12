@@ -22,13 +22,15 @@ public class CraftingTable : MonoBehaviour, IPointerClickHandler
         OutputContainer = new(craftingOutputSlots);
     }
 
-    public void Craft()
+    public void Craft(int count = 1)
     {
         CraftingRecipe recipe = null;
+        int maxCraftedItems = 0;
+
         var list = recipeList.List;
         for (int r = 0; r < list.Count; r++)
         {
-            if (RecipeFits(list[r]))
+            if (RecipeFits(list[r], out int maxCraftedItemsForRecipe))
             {
                 if (recipe != null)
                 {
@@ -36,32 +38,46 @@ public class CraftingTable : MonoBehaviour, IPointerClickHandler
                     return;
                 }
                 recipe = list[r];
+                maxCraftedItems = maxCraftedItemsForRecipe;
             }
         }
 
         if (recipe == null) return;
 
-        for (int i = 0; i < recipe.Ingredients.Count; i++)
+        int itemsToCraft = Mathf.Min(count, maxCraftedItems);
+        for (int craftItemI = 0; craftItemI < itemsToCraft; craftItemI++)
         {
-            InputContainer.Remove(recipe.Ingredients[i]);
-        }
-
-        if (OutputContainer[0].SpaceLeft >= 1)
-        {
-            OutputContainer[0] = OutputContainer[0].CombineWith(recipe.Result, out var remainingStack);
-            if (!remainingStack.IsEmpty)
+            if (OutputContainer[0].SpaceLeft >= 1)
             {
-                Debug.LogError("Oh no");
+                for (int i = 0; i < recipe.Ingredients.Count; i++)
+                {
+                    InputContainer.Remove(recipe.Ingredients[i]);
+                }
+                OutputContainer[0] = OutputContainer[0].CombineWith(recipe.Result, out var remainingStack);
+                if (!remainingStack.IsEmpty)
+                {
+                    Debug.LogError("Oh no");
+                }
+            }
+            else
+            {
+                return;
             }
         }
     }
 
-    private bool RecipeFits(CraftingRecipe recipe)
+    private bool RecipeFits(CraftingRecipe recipe, out int craftCount)
     {
+        craftCount = 0;
+        int maxCraftItemsCount = int.MaxValue;
         for (int i = 0; i < recipe.Ingredients.Count; i++)
         {
-            if (!InputContainer.Contains(recipe.Ingredients[i]))
+            int howManyCanBeCrafted = InputContainer.ContainsMany(recipe.Ingredients[i]);
+
+            if (howManyCanBeCrafted <= 0)
                 return false;
+            else
+                maxCraftItemsCount = Mathf.Min(maxCraftItemsCount, howManyCanBeCrafted);
         }
 
         for (int i = 0; i < InputContainer.SlotCount; i++)
@@ -71,14 +87,15 @@ public class CraftingTable : MonoBehaviour, IPointerClickHandler
             bool ingredientIsUsed = false;
             for (int j = 0; j < recipe.Ingredients.Count; j++)
             {
-                if (recipe.Ingredients[j].Item == InputContainer[i].Item) 
+                if (recipe.Ingredients[j].Item == InputContainer[i].Item)
                     ingredientIsUsed = true;
             }
 
-            if (!ingredientIsUsed) 
+            if (!ingredientIsUsed)
                 return false;
         }
 
+        craftCount = maxCraftItemsCount;
         return true;
     }
 
