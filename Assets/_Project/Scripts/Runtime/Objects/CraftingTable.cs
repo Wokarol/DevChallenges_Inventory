@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class CraftingTable : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private int craftingInputSlots = 3;
     [SerializeField] private int craftingOutputSlots = 1;
+    [SerializeField] private CraftingRecipeList recipeList = null;
     [Space]
     [SerializeField] private CraftingTableView craftingTableView;
 
@@ -17,6 +19,11 @@ public class CraftingTable : MonoBehaviour, IPointerClickHandler
     {
         InputContainer = new(craftingInputSlots);
         OutputContainer = new(craftingOutputSlots);
+    }
+
+    public void Craft()
+    {
+        throw new NotImplementedException();
     }
 
     public void OnPointerClick(PointerEventData eventData)

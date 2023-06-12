@@ -1,14 +1,24 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CraftingTableView : MonoBehaviour, IInventoryMenuView
 {
     [SerializeField] private ItemContainerView tableInputContainerView;
     [SerializeField] private ItemContainerView tableOutputContainerView;
+    [SerializeField] private Button craftButton;
 
     private CraftingTable table;
     private BasicContainer tableInputContainer;
     private BasicContainer tableOutputContainer;
+
+    private void Awake()
+    {
+        craftButton.onClick.AddListener(() =>
+        {
+            table.Craft();
+        });
+    }
 
     public void BindTo(CraftingTable table)
     {

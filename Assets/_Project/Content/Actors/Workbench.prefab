@@ -75,18 +75,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.94071245, y: 0.75355, z: 0.94071245}
   m_Center: {x: 0, y: 0.376775, z: 0}
---- !u!114 &4852953269804342375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8348043605240801049}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 987d50d8f5f833b41a53e6562e584b94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2935066440310188989
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,4 +89,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   craftingInputSlots: 3
   craftingOutputSlots: 1
+  recipeList: {fileID: 11400000, guid: b6ad770389a91b643adc35e02feaa148, type: 2}
   craftingTableView: {fileID: 4749790912193861320, guid: b70d9ca21ebf3d14e80468f7e3736814, type: 3}
+--- !u!114 &4852953269804342375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8348043605240801049}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987d50d8f5f833b41a53e6562e584b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

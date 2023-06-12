@@ -93,6 +93,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tableInputContainerView: {fileID: 6215109326610249191}
   tableOutputContainerView: {fileID: 1591053348012446371}
+  craftButton: {fileID: 2994254478641232107}
 --- !u!1 &355737437537883313
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +909,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8898656978226753390, guid: e3ccfa98b1751c24fba1244d3cb3f039, type: 3}
       propertyPath: m_Name
-      value: Inventory Sort Button
+      value: Craft Button
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3ccfa98b1751c24fba1244d3cb3f039, type: 3}
@@ -917,6 +918,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8898656978226753377, guid: e3ccfa98b1751c24fba1244d3cb3f039, type: 3}
   m_PrefabInstance: {fileID: 5977362792754829195}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2994254478641232107 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8898656978226753376, guid: e3ccfa98b1751c24fba1244d3cb3f039, type: 3}
+  m_PrefabInstance: {fileID: 5977362792754829195}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7509639591848850575
 PrefabInstance:
   m_ObjectHideFlags: 0
