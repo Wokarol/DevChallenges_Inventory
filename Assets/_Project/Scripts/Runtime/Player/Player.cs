@@ -28,9 +28,14 @@ public class Player : MonoBehaviour
         inventoryView.OpenWithSecondMenu(chest.View, v => v.BindTo(chest), chest.CloseChest);
     }
 
-    internal void OpenFireplace(Fireplace fireplace)
+    public void OpenFireplace(Fireplace fireplace)
     {
         inventoryView.OpenWithSecondMenu(fireplace.View, view => view.BindTo(fireplace));
+    }
+
+    public void OpenCraftingTable(CraftingTable table)
+    {
+        inventoryView.OpenWithSecondMenu(table.View, view => view.BindTo(table));
     }
 
     internal void GiveItem(Item item, int count)
