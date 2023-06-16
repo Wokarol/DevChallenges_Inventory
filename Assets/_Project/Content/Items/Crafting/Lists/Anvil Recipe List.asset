@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abeb7bcec74082745bc99c1123907612, type: 3}
+  m_Name: Anvil Recipe List
+  m_EditorClassIdentifier: 
+  list:
+  - {fileID: 11400000, guid: f727067195b356c41aed3b7ffbe7b236, type: 2}
+  - {fileID: 11400000, guid: 0d626a85ebac6e6458de7119bd630ab8, type: 2}
+  - {fileID: 11400000, guid: 283415ecc0d89874c88d7d230360651b, type: 2}

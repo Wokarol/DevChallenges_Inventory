@@ -38,7 +38,12 @@ public class Player : MonoBehaviour
         inventoryView.OpenWithSecondMenu(table.View, view => view.BindTo(table));
     }
 
-    internal void GiveItem(Item item, int count)
+    public void OpenAnvil(Anvil anvil)
+    {
+        inventoryView.OpenWithSecondMenu(anvil.View, view => view.BindTo(anvil));
+    }
+
+    public void GiveItem(Item item, int count)
     {
         inventory.Container.TakeStack(new(item, count), out var remaining);
         if (!remaining.IsEmpty) Debug.LogError("Could not store all the taken items!");

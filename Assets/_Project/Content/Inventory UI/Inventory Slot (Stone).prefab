@@ -91,9 +91,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 557862399970719588, guid: f3f75552c0f39fc43beb0e5a9a2cc8b8, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a6d0042efa3fc854bac7404aeda15be9, type: 3}
     - target: {fileID: 6516297144392889905, guid: f3f75552c0f39fc43beb0e5a9a2cc8b8, type: 3}
       propertyPath: m_Name
-      value: Inventory Slot
+      value: Inventory Slot (Stone)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3f75552c0f39fc43beb0e5a9a2cc8b8, type: 3}

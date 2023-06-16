@@ -2,7 +2,6 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class CraftingTableView : MonoBehaviour, IInventoryMenuView
 {
     enum CraftButtonState { Invalid, Single, Multiple, All }
