@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3770ea68c04e9bc46960f2cf65be2662, type: 3}
   m_Name: Arrow Recipe
   m_EditorClassIdentifier: 
-  formSprite: {fileID: 21300000, guid: 552ff702a2b6a324ca5eba4fb838876d, type: 3}
+  formSprite: {fileID: 21300000, guid: 696ca9b1709e6dc4caf5f6d0f77f6197, type: 3}
   createdItem: {fileID: 11400000, guid: 3b766baec25d22d499648dc60cdaf04d, type: 2}
   metalCost: 1

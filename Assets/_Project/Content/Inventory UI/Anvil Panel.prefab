@@ -91,6 +91,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b33440215276744094b604a1ce24d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  oreInputContainerView: {fileID: 6215109326610249191}
+  fuelInputContainerView: {fileID: 7757963537400034397}
+  outputContainerView: {fileID: 6078927947892069757}
+  metalLiquid: {fileID: 8625654278556495881}
+  heatBar: {fileID: 2967574564576955948}
+  currentRecipeInset: {fileID: 7465906799181720797}
+  previousRecipeButton: {fileID: 276988455372914707}
+  nextRecipeButton: {fileID: 691860166312609828}
+  smithButton: {fileID: 4105918479727834394}
 --- !u!1 &764693958691607997
 GameObject:
   m_ObjectHideFlags: 0

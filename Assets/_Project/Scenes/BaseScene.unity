@@ -5802,6 +5802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8871833d0abfb84e87c81b6e1bc706d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  acceptedOre: {fileID: 11400000, guid: 4c6520888f1216848980173214c75004, type: 2}
   anvilView: {fileID: 4921633272747981501, guid: 5fe311ec56db8d3408535c7d91850ab9, type: 3}
   recipeList: {fileID: 11400000, guid: 729f1a75bcd082a41a17466c5ee53db6, type: 2}
 --- !u!1 &1624146390
