@@ -8,6 +8,7 @@ public class BasicContainer : IItemContainer
 {
     private ItemStack[] items;
     private Predicate<Item> acceptedItemPredicate;
+    private bool ignorePredicateOnDirectInsert;
 
     public BasicContainer(int slotCount, List<ItemStack> startingItems = null)
     {
@@ -24,9 +25,10 @@ public class BasicContainer : IItemContainer
         }
     }
 
-    public BasicContainer AcceptsOnly(Predicate<Item> predicate)
+    public BasicContainer AcceptsOnly(Predicate<Item> predicate, bool ignoreWhenDirect = false)
     {
         acceptedItemPredicate = predicate;
+        ignorePredicateOnDirectInsert = ignoreWhenDirect;
         return this;
     }
 
@@ -35,7 +37,7 @@ public class BasicContainer : IItemContainer
         get => items[index];
         set
         {
-            if (value.Item != null && !AcceptsItem(value.Item)) UnityEngine.Debug.LogError("Container were given an illegal item!");
+            if (value.Item != null && (!AcceptsItem(value.Item) && !ignorePredicateOnDirectInsert)) UnityEngine.Debug.LogError("Container were given an illegal item!");
             if (items[index] == value) return;
 
             items[index] = value;

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b232977d060c6b74a9e5969cd1b0c7bb, type: 3}
-  m_Name: Axe
+  m_Name: Sword (Dull)
   m_EditorClassIdentifier: 
   nameOverride: 
-  description: Oh, this one is sharp. This migth be for combat.
-  sprite: {fileID: 21300000, guid: 0c81248eaf727644e8db1c8d0d061c75, type: 3}
+  description: Not sharp at all!
+  sprite: {fileID: 21300000, guid: 851e25d1945f66b408db13547c2b6ff5, type: 3}
   maxStackSize: 1
   burningDuration: -1
   cookedVersion: {fileID: 0}
   cookingDuration: 0
-  grindedVersion: {fileID: 0}
+  grindedVersion: {fileID: 11400000, guid: 491e1da5bf900d54da0539a07b4ae404, type: 2}
