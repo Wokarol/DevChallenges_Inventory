@@ -7,6 +7,7 @@ public class InventoryView : MonoBehaviour
     [SerializeField] private RectTransform fullPanel = null;
     [SerializeField] private GameObject clickBlockerPane = null;
     [SerializeField] private ItemContainerView playerInventoryView = null;
+    [SerializeField] private ItemContainerView trashView = null;
     [Space]
     [SerializeField] private RectTransform playerInventorySection = null;
     [SerializeField] private RectTransform secondarySection = null;
@@ -17,11 +18,24 @@ public class InventoryView : MonoBehaviour
     private Action closeCallback = null;
     private Inventory playerInventory;
 
+    private BasicContainer trash;
+
     private void Awake()
     {
         PutPanelBelow();
 
         playerInventoryView.OtherContainerFindStrategy = FindOtherContainerForPlayerPanelStrategy;
+        trash = new(1);
+        trashView.BindTo(trash);
+
+        trash.InventoryUpdated += Trash_InventoryUpdated;
+    }
+
+    private void Trash_InventoryUpdated()
+    {
+        if (trash[0].IsEmpty) return;
+
+        trash[0] = ItemStack.Empty;
     }
 
     public void OpenAlone(Action onClose = null)
@@ -66,7 +80,7 @@ public class InventoryView : MonoBehaviour
     public void HideInventoryIfIdle()
     {
         if (!playerInventoryView.IsIdle()) return;
-        if (!mountedPanel.IsIdle()) return;
+        if (mountedPanel != null && !mountedPanel.IsIdle()) return;
 
         HideInventory();
     }

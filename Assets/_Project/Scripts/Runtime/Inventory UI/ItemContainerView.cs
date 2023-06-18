@@ -77,6 +77,7 @@ public class ItemContainerView : MonoBehaviour
         for (int i = 0; i < slotViews.Length; i++)
         {
             var slotView = slotViews[i];
+
             slotView.Display(null, false);
             slotView.Init(i, this);
         }
