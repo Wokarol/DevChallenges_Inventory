@@ -5785,28 +5785,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1606770340 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5144469559919779240, guid: b56b2e71033b019418ede71e105bad94, type: 3}
-  m_PrefabInstance: {fileID: 5156419915110894859}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1606770346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1606770340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8871833d0abfb84e87c81b6e1bc706d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acceptedOre: {fileID: 11400000, guid: 4c6520888f1216848980173214c75004, type: 2}
-  anvilView: {fileID: 4921633272747981501, guid: 5fe311ec56db8d3408535c7d91850ab9, type: 3}
-  recipeList: {fileID: 11400000, guid: 729f1a75bcd082a41a17466c5ee53db6, type: 2}
-  maxMetal: 5
-  cooldownBetweenSmithinAndAddingOre: 0.5
 --- !u!1 &1624146390
 GameObject:
   m_ObjectHideFlags: 0

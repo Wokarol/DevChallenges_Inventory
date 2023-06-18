@@ -16,6 +16,6 @@ MonoBehaviour:
   description: 
   sprite: {fileID: 21300000, guid: 68e6ac82a36ddb94bbe699b59f4c9e57, type: 3}
   maxStackSize: 10
-  burningDuration: -1
+  burningDuration: 17.5
   cookedVersion: {fileID: 0}
   cookingDuration: 0

@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,7 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
     [SerializeField] private Button previousRecipeButton;
     [SerializeField] private Button nextRecipeButton;
     [SerializeField] private Button smithButton;
+    [SerializeField] private TMP_Text metalCostLabel;
     [Space]
     [SerializeField] private CanvasGroup metalArrowFlash;
     [SerializeField] private CanvasGroup fuelArrowFlash;
@@ -43,6 +45,7 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
 
         heatBar.fillAmount = anvil.Heat;
         currentRecipeInset.sprite = anvil.CurrentRecipe.FormSprite;
+        metalCostLabel.text = anvil.CurrentRecipe.MetalCost.ToString();
 
         if (lastMetalFill != anvil.MetalFill)
         {
@@ -55,6 +58,7 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
         lastMetalFill = anvil.MetalFill;
 
         metalBlockedIcon.SetActive(!anvil.IsHeatedUp);
+        smithButton.interactable = anvil.IsHeatedUp;
     }
 
     private void OnDestroy()
@@ -88,14 +92,14 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
 
     private void SubscribeToBoundEvents()
     {
-        this.anvil.ConsumedMetal += OnMetalConsumed;
-        this.anvil.ConsumedFuel += OnFuelConsumed;
+        anvil.ConsumedMetal += OnMetalConsumed;
+        anvil.ConsumedFuel += OnFuelConsumed;
     }
 
     private void UnsubscribeFromBoundEvents()
     {
-        this.anvil.ConsumedMetal -= OnMetalConsumed;
-        this.anvil.ConsumedFuel -= OnFuelConsumed;
+        anvil.ConsumedMetal -= OnMetalConsumed;
+        anvil.ConsumedFuel -= OnFuelConsumed;
     }
 
     public void AbortInteraction()

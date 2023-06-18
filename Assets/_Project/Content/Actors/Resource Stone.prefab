@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 190506f8bcbdfb34685f31c99195c368, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.62
+      value: 2.791
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 190506f8bcbdfb34685f31c99195c368, type: 3}
       propertyPath: m_LocalPosition.y
@@ -33,11 +33,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 190506f8bcbdfb34685f31c99195c368, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.42
+      value: -4.663
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 190506f8bcbdfb34685f31c99195c368, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9871416
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 190506f8bcbdfb34685f31c99195c368, type: 3}
       propertyPath: m_LocalRotation.x
@@ -45,7 +45,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 190506f8bcbdfb34685f31c99195c368, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: -0.15984866
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 190506f8bcbdfb34685f31c99195c368, type: 3}
       propertyPath: m_LocalRotation.z
@@ -57,7 +57,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 190506f8bcbdfb34685f31c99195c368, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -18.396
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 190506f8bcbdfb34685f31c99195c368, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -120,7 +120,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d5ed8dc95da6444fb51c619ae657832, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 4c6520888f1216848980173214c75004, type: 2}
+  items:
+  - Item: {fileID: 11400000, guid: 4c6520888f1216848980173214c75004, type: 2}
+    Weigth: 10
+  - Item: {fileID: 11400000, guid: 3ac17c58051f6aa42aa1103eabcac34c, type: 2}
+    Weigth: 4
 --- !u!1001 &4090509434180703119
 PrefabInstance:
   m_ObjectHideFlags: 0

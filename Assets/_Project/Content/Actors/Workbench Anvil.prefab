@@ -62,18 +62,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: bc97e12eea3315a4793c3f8ec878ee25, type: 3}
   m_PrefabInstance: {fileID: 5450967566322835705}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &390392251601257204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5144469559919779240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 987d50d8f5f833b41a53e6562e584b94, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &8119565067855148021
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -87,3 +75,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0822903, y: 0.82074994, z: 0.9407126}
   m_Center: {x: -0.06921112, y: 0.41037497, z: 0}
+--- !u!114 &390392251601257204
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144469559919779240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 987d50d8f5f833b41a53e6562e584b94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3090659460162334490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5144469559919779240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8871833d0abfb84e87c81b6e1bc706d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceptedOre: {fileID: 11400000, guid: 4c6520888f1216848980173214c75004, type: 2}
+  anvilView: {fileID: 4921633272747981501, guid: 5fe311ec56db8d3408535c7d91850ab9, type: 3}
+  recipeList: {fileID: 11400000, guid: 729f1a75bcd082a41a17466c5ee53db6, type: 2}
+  maxMetal: 5
+  cooldownBetweenSmithinAndAddingOre: 0.5
+  cooldownBetweenOreAdding: 0.5
+  heatPerFuelUnit: 0.01
+  heatDropPerSecond: 0.05
+  cooldownBetweenFuelAdding: 0.5

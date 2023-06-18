@@ -13,6 +13,8 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     [SerializeField] private float cooldownBetweenOreAdding = 0.5f;
     [Space]
     [SerializeField] private float heatPerFuelUnit = 0.05f;
+    [SerializeField] private float heatDropPerSecond = 0.1f;
+    [SerializeField] private float cooldownBetweenFuelAdding = 0.5f;
 
     private float nextOreAddTime;
     private float nextFuelAddTime;
@@ -45,8 +47,30 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
-        //Heat = 1; // TODO: Implement
+        ProcessBurning();
+        ProcessOreMelting();
+    }
 
+    private void ProcessBurning()
+    {
+        bool fuelAddCooldownGone = nextFuelAddTime < Time.time;
+        bool hasFuel = !FuelInputContainer[0].IsEmpty;
+
+        if (fuelAddCooldownGone && !IsHeatedUp && hasFuel)
+        {
+            Heat += FuelInputContainer[0].Item.BurningDuration * heatPerFuelUnit;
+            FuelInputContainer[0] = FuelInputContainer[0].Subtract(1);
+            ConsumedFuel?.Invoke();
+
+            nextFuelAddTime = Time.time + cooldownBetweenFuelAdding;
+        }
+
+        Heat -= heatDropPerSecond * Time.deltaTime;
+        Heat = Mathf.Clamp(Heat, 0, 100);
+    }
+
+    private void ProcessOreMelting()
+    {
         bool oreAddCooldownGone = nextOreAddTime < Time.time;
         bool isMetalFull = MetalFill >= MaxMetal;
         bool hasMetalOre = !OreInputContainer[0].IsEmpty;
@@ -104,6 +128,7 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
 
     public void Smith()
     {
+        if (!IsHeatedUp) return;
         if (OutputContainer[0].SpaceLeft == 0) return;
         nextOreAddTime = Mathf.Max(nextOreAddTime, Time.time + cooldownBetweenSmithinAndAddingOre);
 
