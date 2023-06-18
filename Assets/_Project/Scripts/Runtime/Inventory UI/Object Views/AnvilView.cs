@@ -88,6 +88,11 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
         outputContainerView.BindTo(anvil.OutputContainer);
 
         outputContainerView.OutputOnly = true;
+
+        fuelInputContainerView.OnHeldItemsChanged += heldItems =>
+        {
+            anvil.ItemsInHandFromFuelContainer = heldItems;
+        };
     }
 
     private void SubscribeToBoundEvents()

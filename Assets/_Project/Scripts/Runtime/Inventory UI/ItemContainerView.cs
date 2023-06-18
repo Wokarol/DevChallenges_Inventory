@@ -57,6 +57,17 @@ public class ItemContainerView : MonoBehaviour
     public Func<ItemStack, IItemContainer> OtherContainerFindStrategy;
 
     public bool OutputOnly { get; set; }
+    public int HeldItemCount
+    {
+        get => heldItemCount; set
+        {
+            if (heldItemCount == value) return;
+            heldItemCount = value;
+            OnHeldItemsChanged?.Invoke(heldItemCount);
+        }
+    }
+
+    public event Action<int> OnHeldItemsChanged;
 
     private void Awake()
     {
@@ -128,7 +139,7 @@ public class ItemContainerView : MonoBehaviour
 
         SwitchState(InteractionState.HoldingItem);
         heldItemIndex = index;
-        heldItemCount = rightClick ? stack.Count / 2 : stack.Count;
+        HeldItemCount = rightClick ? stack.Count / 2 : stack.Count;
 
         draggedImage = helpers.BorrowUIItem();
         draggedImage.transform.position = slotPosition;
@@ -176,8 +187,8 @@ public class ItemContainerView : MonoBehaviour
 
         if (otherStack.IsEmpty)
         {
-            targetContainer[targetIndex] = myStack.WithCount(heldItemCount);
-            container[sourceIndex] = myStack.Subtract(heldItemCount);
+            targetContainer[targetIndex] = myStack.WithCount(HeldItemCount);
+            container[sourceIndex] = myStack.Subtract(HeldItemCount);
             return MoveResult.Moved;
         }
         else
@@ -190,9 +201,9 @@ public class ItemContainerView : MonoBehaviour
                     return MoveResult.PartiallyMoved(otherStack.Count);
                 }
 
-                var itemsInHand = myStack.WithCount(heldItemCount);
+                var itemsInHand = myStack.WithCount(HeldItemCount);
                 var newOtherStack = otherStack.CombineWith(itemsInHand, out var itemsLeftInHand);
-                var newMyStack = myStack.Subtract(heldItemCount - itemsLeftInHand.Count);
+                var newMyStack = myStack.Subtract(HeldItemCount - itemsLeftInHand.Count);
 
                 targetContainer[targetIndex] = newOtherStack;
                 container[sourceIndex] = newMyStack;
@@ -201,7 +212,7 @@ public class ItemContainerView : MonoBehaviour
                     ? MoveResult.Moved
                     : MoveResult.PartiallyMoved(itemsLeftInHand.Count);
             }
-            else if (heldItemCount == myStack.Count)
+            else if (HeldItemCount == myStack.Count)
             {
                 (container[sourceIndex], targetContainer[targetIndex]) = (otherStack, myStack);
                 return MoveResult.Moved;
@@ -261,7 +272,7 @@ public class ItemContainerView : MonoBehaviour
 
         if (isDoubleClick && isLeftClick && sameSlot == true)
         {
-            heldItemCount = container.MoveAllSimilarItemsToSlot(heldItemIndex);
+            HeldItemCount = container.MoveAllSimilarItemsToSlot(heldItemIndex);
             RerenderStackInHand();
             helpers.AwaitClick(ClickedWhileDragging);
             return;
@@ -284,7 +295,7 @@ public class ItemContainerView : MonoBehaviour
                     movedAllItems = true;
                 else if (moveResult.WasPartiallyMoved)
                 {
-                    heldItemCount = moveResult.LeftInHand;
+                    HeldItemCount = moveResult.LeftInHand;
                     RerenderStackInHand();
                 }
             }
@@ -305,12 +316,12 @@ public class ItemContainerView : MonoBehaviour
 
                 if (movedItem)
                 {
-                    heldItemCount -= 1;
+                    HeldItemCount -= 1;
                     RerenderStackInHand();
                 }
             }
 
-            if (container[heldItemIndex].IsEmpty || heldItemCount == 0)
+            if (container[heldItemIndex].IsEmpty || HeldItemCount == 0)
             {
                 SwitchState(InteractionState.None);
             }
@@ -330,7 +341,7 @@ public class ItemContainerView : MonoBehaviour
 
     private void RerenderStackInHand()
     {
-        draggedImage.Display(container[heldItemIndex].WithCount(heldItemCount));
+        draggedImage.Display(container[heldItemIndex].WithCount(HeldItemCount));
     }
 
     private void MarkContainerViewDirty()
@@ -349,7 +360,7 @@ public class ItemContainerView : MonoBehaviour
                 slotViews[i].Display(new ItemStack()
                 {
                     Item = stack.Item,
-                    Count = stack.Count - heldItemCount,
+                    Count = stack.Count - HeldItemCount,
                 }, true);
                 continue;
             }
@@ -366,6 +377,7 @@ public class ItemContainerView : MonoBehaviour
         if (newState == InteractionState.None)
         {
             heldItemIndex = -1;
+            HeldItemCount = 0;
         }
 
         if (newState == InteractionState.None && oldState == InteractionState.HoldingItem)

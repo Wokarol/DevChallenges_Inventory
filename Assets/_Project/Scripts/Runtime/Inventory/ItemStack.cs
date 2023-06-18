@@ -16,7 +16,7 @@ public struct ItemStack : IEquatable<ItemStack>
 
     public static ItemStack Empty => default;
 
-    public readonly bool IsEmpty => Item == null;
+    public readonly bool IsEmpty => Item == null || count <= 0;
     public readonly bool IsFull => Item != null && count == Item.MaxStackSize;
 
     public int Count
