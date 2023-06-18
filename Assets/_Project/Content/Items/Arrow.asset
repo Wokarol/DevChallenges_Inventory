@@ -15,7 +15,7 @@ MonoBehaviour:
   nameOverride: 
   description: There are no bows... don't question that
   sprite: {fileID: 21300000, guid: c1dd36819c88e2e499583497bac3239a, type: 3}
-  maxStackSize: 1
+  maxStackSize: 10
   burningDuration: -1
   cookedVersion: {fileID: 0}
   cookingDuration: 0

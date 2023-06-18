@@ -16,6 +16,10 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
     [SerializeField] private Button previousRecipeButton;
     [SerializeField] private Button nextRecipeButton;
     [SerializeField] private Button smithButton;
+    [Space]
+    [SerializeField] private CanvasGroup metalArrowFlash;
+    [SerializeField] private CanvasGroup fuelArrowFlash;
+    [SerializeField] private GameObject metalBlockedIcon;
 
     private Anvil anvil;
     private BasicContainer oreInputContainer;
@@ -28,6 +32,9 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
         previousRecipeButton.onClick.AddListener(OnPreviousRecipe);
         nextRecipeButton.onClick.AddListener(OnNextRecipe);
         smithButton.onClick.AddListener(OnSmithPressed);
+
+        metalArrowFlash.alpha = 0;
+        fuelArrowFlash.alpha = 0;
     }
 
     private void LateUpdate()
@@ -46,11 +53,29 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
             metalLiquid.DOAnchorMax(newLiquidAnchor, 0.2f);
         }
         lastMetalFill = anvil.MetalFill;
+
+        metalBlockedIcon.SetActive(!anvil.IsHeatedUp);
+    }
+
+    private void OnDestroy()
+    {
+        if (this.anvil != null)
+        {
+            UnsubscribeFromBoundEvents();
+        }
     }
 
     public void BindTo(Anvil anvil)
     {
+        if (this.anvil != null)
+        {
+            UnsubscribeFromBoundEvents();
+        }
+
         this.anvil = anvil;
+
+        SubscribeToBoundEvents();
+
         oreInputContainer = anvil.OreInputContainer;
         fuelInputContainer = anvil.FuelInputContainer;
 
@@ -59,6 +84,18 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
         outputContainerView.BindTo(anvil.OutputContainer);
 
         outputContainerView.OutputOnly = true;
+    }
+
+    private void SubscribeToBoundEvents()
+    {
+        this.anvil.ConsumedMetal += OnMetalConsumed;
+        this.anvil.ConsumedFuel += OnFuelConsumed;
+    }
+
+    private void UnsubscribeFromBoundEvents()
+    {
+        this.anvil.ConsumedMetal -= OnMetalConsumed;
+        this.anvil.ConsumedFuel -= OnFuelConsumed;
     }
 
     public void AbortInteraction()
@@ -101,5 +138,19 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
     private void OnSmithPressed()
     {
         anvil.Smith();
+    }
+
+    private void OnMetalConsumed()
+    {
+        DOTween.Sequence()
+            .Append(metalArrowFlash.DOFade(1, 0.2f))
+            .Append(metalArrowFlash.DOFade(0, 0.3f));
+    }
+
+    private void OnFuelConsumed()
+    {
+        DOTween.Sequence()
+            .Append(fuelArrowFlash.DOFade(1, 0.2f))
+            .Append(fuelArrowFlash.DOFade(0, 0.3f));
     }
 }

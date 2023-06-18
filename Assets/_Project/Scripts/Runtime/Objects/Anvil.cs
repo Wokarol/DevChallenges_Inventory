@@ -10,7 +10,12 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     [SerializeField] private int maxMetal = 5;
     [Space]
     [SerializeField] private float cooldownBetweenSmithinAndAddingOre = 0.5f;
+    [SerializeField] private float cooldownBetweenOreAdding = 0.5f;
+    [Space]
+    [SerializeField] private float heatPerFuelUnit = 0.05f;
+
     private float nextOreAddTime;
+    private float nextFuelAddTime;
 
     public AnvilView View => anvilView;
     public int MaxMetal => maxMetal;
@@ -21,6 +26,10 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     public float Heat { get; private set; }
     public int MetalFill { get; private set; }
     public AnvilRecipe CurrentRecipe { get; private set; }
+    public bool IsHeatedUp => Heat > 0.8;
+
+    public event Action ConsumedMetal;
+    public event Action ConsumedFuel;
 
     private void Awake()
     {
@@ -36,13 +45,19 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
 
     private void Update()
     {
-        Heat = 1; // TODO: Implement
+        //Heat = 1; // TODO: Implement
 
         bool oreAddCooldownGone = nextOreAddTime < Time.time;
-        if (oreAddCooldownGone && MetalFill < MaxMetal && !OreInputContainer[0].IsEmpty)
+        bool isMetalFull = MetalFill >= MaxMetal;
+        bool hasMetalOre = !OreInputContainer[0].IsEmpty;
+
+        if (oreAddCooldownGone && !isMetalFull && hasMetalOre && IsHeatedUp)
         {
             OreInputContainer[0] = OreInputContainer[0].Subtract(1);
             MetalFill += 1;
+            ConsumedMetal?.Invoke();
+
+            nextOreAddTime = Mathf.Max(nextOreAddTime, Time.time + cooldownBetweenOreAdding);
         }
     }
 
@@ -90,7 +105,7 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     public void Smith()
     {
         if (OutputContainer[0].SpaceLeft == 0) return;
-        nextOreAddTime = Time.time + cooldownBetweenSmithinAndAddingOre;
+        nextOreAddTime = Mathf.Max(nextOreAddTime, Time.time + cooldownBetweenSmithinAndAddingOre);
 
         MetalFill -= CurrentRecipe.MetalCost;
         OutputContainer[0] = OutputContainer[0].CombineWith(new(CurrentRecipe.CreatedItem, 1), out var remainingStack);
