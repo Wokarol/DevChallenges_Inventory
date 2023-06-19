@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Fish Burned
   m_EditorClassIdentifier: 
   nameOverride: Fish (Burned)
-  description: Like fish, but cooked
+  description: Like fish, but no longer edible
   sprite: {fileID: 21300000, guid: 1fd519d5b30449a419c4d8faf47b03ef, type: 3}
   maxStackSize: 5
   burningDuration: -1
   cookedVersion: {fileID: 0}
   cookingDuration: 0
+  grindedVersion: {fileID: 0}

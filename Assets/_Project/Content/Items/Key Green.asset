@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: Key Green
   m_EditorClassIdentifier: 
   nameOverride: Key (Green)
-  description: 
+  description: A key, nothing less, nothing more
   sprite: {fileID: 553161466, guid: e942bf69a8ee0d84688acd57077bda52, type: 3}
   maxStackSize: 1
   burningDuration: -1
   cookedVersion: {fileID: 0}
   cookingDuration: 0
+  grindedVersion: {fileID: 0}
