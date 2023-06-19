@@ -79,6 +79,7 @@ public class Grindstone : MonoBehaviour, IPointerClickHandler
     public void StartGrind()
     {
         if (WeaponContainer[0].IsEmpty) return;
+        if (!WeaponContainer[0].Item.CanBeGrinded) return;
 
         SwitchStateTo(State.Grinding);
     }
