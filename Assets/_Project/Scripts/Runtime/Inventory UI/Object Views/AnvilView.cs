@@ -153,13 +153,15 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
     {
         DOTween.Sequence()
             .Append(metalArrowFlash.DOFade(1, 0.2f))
-            .Append(metalArrowFlash.DOFade(0, 0.3f));
+            .Append(metalArrowFlash.DOFade(0, 0.3f))
+            .SetLink(metalArrowFlash.gameObject);
     }
 
     private void OnFuelConsumed()
     {
         DOTween.Sequence()
             .Append(fuelArrowFlash.DOFade(1, 0.2f))
-            .Append(fuelArrowFlash.DOFade(0, 0.3f));
+            .Append(fuelArrowFlash.DOFade(0, 0.3f))
+            .SetLink(metalArrowFlash.gameObject);
     }
 }

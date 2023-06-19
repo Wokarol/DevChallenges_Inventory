@@ -15,7 +15,12 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (Input.GetKeyDown(KeyCode.Escape) && inventoryView.IsOpen)
+        {
+            inventoryView.HideInventory();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.I))
         {
             if (inventoryView.IsOpen)
                 inventoryView.HideInventory();

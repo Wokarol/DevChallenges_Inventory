@@ -8990,34 +8990,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3936768500559569161, guid: 88211791702f0eb4c96c45cc3420fae8, type: 3}
-      propertyPath: grindingAngleToProgressSpeedCurve.m_Curve.Array.data[1].time
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936768500559569161, guid: 88211791702f0eb4c96c45cc3420fae8, type: 3}
-      propertyPath: grindingAngleToProgressSpeedCurve.m_Curve.Array.data[1].value
-      value: 0.50540906
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936768500559569161, guid: 88211791702f0eb4c96c45cc3420fae8, type: 3}
-      propertyPath: grindingAngleToProgressSpeedCurve.m_Curve.Array.data[2].value
-      value: 0.50540906
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936768500559569161, guid: 88211791702f0eb4c96c45cc3420fae8, type: 3}
-      propertyPath: grindingAngleToProgressSpeedCurve.m_Curve.Array.data[1].inSlope
-      value: -0.098918185
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936768500559569161, guid: 88211791702f0eb4c96c45cc3420fae8, type: 3}
-      propertyPath: grindingAngleToProgressSpeedCurve.m_Curve.Array.data[3].inSlope
-      value: -0.50540906
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936768500559569161, guid: 88211791702f0eb4c96c45cc3420fae8, type: 3}
-      propertyPath: grindingAngleToProgressSpeedCurve.m_Curve.Array.data[0].outSlope
-      value: -0.098918185
-      objectReference: {fileID: 0}
-    - target: {fileID: 3936768500559569161, guid: 88211791702f0eb4c96c45cc3420fae8, type: 3}
-      propertyPath: grindingAngleToProgressSpeedCurve.m_Curve.Array.data[2].outSlope
-      value: -0.50540906
-      objectReference: {fileID: 0}
     - target: {fileID: 8285544016254044958, guid: 88211791702f0eb4c96c45cc3420fae8, type: 3}
       propertyPath: m_RootOrder
       value: 20
