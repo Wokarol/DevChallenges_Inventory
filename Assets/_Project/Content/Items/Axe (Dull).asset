@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameOverride: 
   description: Not for combat!
-  sprite: {fileID: 21300000, guid: 0c81248eaf727644e8db1c8d0d061c75, type: 3}
+  sprite: {fileID: 21300000, guid: 0a8a1a6c8e141824c8f9d2c7d2b3243d, type: 3}
   maxStackSize: 1
   burningDuration: -1
   cookedVersion: {fileID: 0}

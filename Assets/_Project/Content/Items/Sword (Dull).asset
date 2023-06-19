@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameOverride: 
   description: Not sharp at all!
-  sprite: {fileID: 21300000, guid: 851e25d1945f66b408db13547c2b6ff5, type: 3}
+  sprite: {fileID: 21300000, guid: edc74f91aeb088f4f965e931dc7b0452, type: 3}
   maxStackSize: 1
   burningDuration: -1
   cookedVersion: {fileID: 0}
