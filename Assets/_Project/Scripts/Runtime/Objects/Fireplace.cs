@@ -52,18 +52,6 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
     private void Update()
     {
         ProcessCooking();
-
-        if (BurnTimeLeft > 0)
-        {
-            BurnTimeLeft -= Time.deltaTime;
-            if (BurnTimeLeft <= 0)
-            {
-                BurnTimeLeft = 0;
-
-            }
-        }
-
-
         if (fireBurningEvent != null && fireBurningEvent.IsPlaying())
         {
             if (BurnTimeLeft <= 0)
@@ -71,6 +59,15 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
                 fireBurningEvent.Stop();
             }
             fireBurningEvent.SetParameter(isCookingParameterName, state is State.Cooking ? 1 : 0);
+        }
+
+        if (BurnTimeLeft > 0)
+        {
+            BurnTimeLeft -= Time.deltaTime;
+            if (BurnTimeLeft <= 0)
+            {
+                BurnTimeLeft = 0;
+            }
         }
     }
 
