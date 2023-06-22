@@ -1,5 +1,131 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1764081546054295810
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9176255012998598034}
+  - component: {fileID: 312406470896301888}
+  m_Layer: 0
+  m_Name: Chest Open Event
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9176255012998598034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764081546054295810}
+  m_LocalRotation: {x: -0, y: -0.060998876, z: 0, w: 0.99813783}
+  m_LocalPosition: {x: 1.6320735, y: 3.194546, z: -6.8317595}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6076844178409728182}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &312406470896301888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764081546054295810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 174966842
+      Data2: 1286952696
+      Data3: -1458073439
+      Data4: -1653613848
+    Path: event:/Objects/Chest-Open
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!1 &6884271802342129551
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3428255985097500430}
+  - component: {fileID: 3383618762224010310}
+  m_Layer: 0
+  m_Name: Chest Lock Event
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3428255985097500430
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6884271802342129551}
+  m_LocalRotation: {x: -0, y: -0.060998876, z: 0, w: 0.99813783}
+  m_LocalPosition: {x: 1.6320735, y: 3.194546, z: -6.8317595}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6076844178409728182}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3383618762224010310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6884271802342129551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1040575658
+      Data2: 1093929209
+      Data3: 685776563
+      Data4: -500335165
+    Path: event:/Objects/Chest-Lock
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &6043814104433315677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -57,6 +183,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7e78f52e615021499c1676a5ef63533, type: 3}
+--- !u!4 &6076844178409728182 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: f7e78f52e615021499c1676a5ef63533, type: 3}
+  m_PrefabInstance: {fileID: 6043814104433315677}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6684605201126734473 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1088619777609266644, guid: f7e78f52e615021499c1676a5ef63533, type: 3}
@@ -122,3 +253,7 @@ MonoBehaviour:
   inventory: {fileID: 4522984619343612575}
   chestView: {fileID: 652186098997151457, guid: 744458e4137f81447afb22ffedf8b691, type: 3}
   chestLid: {fileID: 6684605201126734473}
+  requiresKey: 0
+  key: {fileID: 0}
+  openCloseSound: {fileID: 312406470896301888}
+  lockSound: {fileID: 3383618762224010310}

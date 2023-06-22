@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMODUnity;
 using NaughtyAttributes;
 using System;
 using System.Collections;
@@ -18,6 +19,9 @@ public class Chest : MonoBehaviour, IPointerClickHandler
     [SerializeField] private bool requiresKey;
     [ShowIf(nameof(requiresKey))]
     [SerializeField] private Item key;
+    [Header("Audio")]
+    [SerializeField] private StudioEventEmitter openCloseSound;
+    [SerializeField] private StudioEventEmitter lockSound;
 
     public ChestView View => chestView;
     public Inventory Inventory => inventory;
@@ -38,6 +42,7 @@ public class Chest : MonoBehaviour, IPointerClickHandler
             {
                 IsLocked = KeyContainer[0].IsEmpty;
                 LockedStateChanged?.Invoke(IsLocked);
+                lockSound.Play();
             };
         }
     }
@@ -48,11 +53,15 @@ public class Chest : MonoBehaviour, IPointerClickHandler
 
         chestLid.DOKill();
         chestLid.DOLocalRotate(Vector3.right * 60f, 0.5f);
+
+        openCloseSound.Play();
     }
 
     public void CloseChest()
     {
         chestLid.DOKill();
         chestLid.DOLocalRotate(Vector3.zero, 0.5f);
+
+        openCloseSound.Play();
     }
 }
