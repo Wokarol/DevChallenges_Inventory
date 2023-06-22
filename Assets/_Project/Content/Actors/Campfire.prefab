@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987d50d8f5f833b41a53e6562e584b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventEmitter: {fileID: 0}
 --- !u!114 &8326201446126427325
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,3 +102,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   view: {fileID: 1621473542284484445, guid: aebd6019fb0c83948af56e7fb83c03e2, type: 3}
+  fireBurningEvent: {fileID: 3391648018556626427}
+  isCookingParameterName: Is Cooking
+  isOpenParameterName: Is Open
+--- !u!114 &3391648018556626427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2341762681865068183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -539342506
+      Data2: 1309621624
+      Data3: 992131245
+      Data4: 1293576765
+    Path: event:/Objects/Fireplace
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params:
+  - Name: Is Open
+    Value: 1
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20

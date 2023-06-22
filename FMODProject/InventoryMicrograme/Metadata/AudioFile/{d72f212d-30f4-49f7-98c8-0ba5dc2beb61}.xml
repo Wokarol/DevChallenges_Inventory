@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{d72f212d-30f4-49f7-98c8-0ba5dc2beb61}">
+		<property name="assetPath">
+			<value>Workbench/workbench-hammer-1.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>4.1823541666666664</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{820bbbff-2389-4070-84cd-ce4445a3b279}</destination>
+		</relationship>
+	</object>
+</objects>

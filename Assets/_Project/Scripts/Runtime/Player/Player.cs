@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
 
     public void OpenFireplace(Fireplace fireplace)
     {
-        inventoryView.OpenWithSecondMenu(fireplace.View, view => view.BindTo(fireplace));
+        inventoryView.OpenWithSecondMenu(fireplace.View, view => view.BindTo(fireplace), fireplace.Close);
     }
 
     public void OpenCraftingTable(CraftingTable table)

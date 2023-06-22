@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{7d12e997-b7a8-451f-b069-e55f7bfa8362}">
+		<property name="assetPath">
+			<value>Anvil/anvil-2.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>96</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>78.793999999999997</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{820bbbff-2389-4070-84cd-ce4445a3b279}</destination>
+		</relationship>
+	</object>
+</objects>

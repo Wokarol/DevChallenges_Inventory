@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMODUnity;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +9,10 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
     enum State { Idle, Cooking, Suspended }
 
     [SerializeField] private FireplaceView view;
+    [Space]
+    [SerializeField] private StudioEventEmitter fireBurningEvent;
+    [SerializeField] private string isCookingParameterName = "Is Cooking";
+    [SerializeField] private string isOpenParameterName = "Is Open";
 
     public FireplaceView View => view;
 
@@ -43,8 +48,25 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
     {
         ProcessCooking();
 
-        BurnTimeLeft -= Time.deltaTime;
-        if (BurnTimeLeft < 0) BurnTimeLeft = 0;
+        if (BurnTimeLeft > 0)
+        {
+            BurnTimeLeft -= Time.deltaTime;
+            if (BurnTimeLeft <= 0)
+            {
+                BurnTimeLeft = 0;
+
+            }
+        }
+
+
+        if (fireBurningEvent != null && fireBurningEvent.IsPlaying())
+        {
+            if (BurnTimeLeft <= 0)
+            {
+                fireBurningEvent.Stop();
+            }
+            fireBurningEvent.SetParameter(isCookingParameterName, state is State.Cooking ? 1 : 0);
+        }
     }
 
     private void ProcessCooking()
@@ -113,7 +135,14 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
 
         if (state is State.Idle && !CooktopInputContainer[0].IsEmpty)
         {
-            SwitchStateTo(State.Cooking);
+            if (HasFuel || BurnTimeLeft > 0)
+            {
+                SwitchStateTo(State.Cooking);
+            }
+            else
+            {
+                SwitchStateTo(State.Suspended);
+            }
         }
     }
 
@@ -126,10 +155,24 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
         {
             cookingTime = 0;
         }
+
+        if (newState is State.Cooking)
+        {
+            if (fireBurningEvent != null)
+            {
+                fireBurningEvent.Play();
+            }
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         FindObjectOfType<Player>().OpenFireplace(this);
+        if (fireBurningEvent != null) fireBurningEvent.SetParameter(isOpenParameterName, 1);
+    }
+
+    public void Close()
+    {
+        if (fireBurningEvent != null) fireBurningEvent.SetParameter(isOpenParameterName, 0);
     }
 }

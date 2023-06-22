@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="EncodableAsset" id="{a9291288-c9a9-4371-acc0-5103eb9bf96a}">
+		<property name="assetPath">
+			<value>Anvil/</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{820bbbff-2389-4070-84cd-ce4445a3b279}</destination>
+		</relationship>
+	</object>
+</objects>

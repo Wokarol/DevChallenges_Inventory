@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987d50d8f5f833b41a53e6562e584b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventEmitter: {fileID: 8560927250352473911}
 --- !u!114 &1379758204192340177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -125,6 +126,37 @@ MonoBehaviour:
     Weigth: 10
   - Item: {fileID: 11400000, guid: 3ac17c58051f6aa42aa1103eabcac34c, type: 2}
     Weigth: 4
+--- !u!114 &8560927250352473911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1751229694960153675}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 947476566
+      Data2: 1130779528
+      Data3: 58727099
+      Data4: 405055744
+    Path: event:/Resources/Stone-Grab
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &4090509434180703119
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMODUnity;
+using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -10,6 +11,8 @@ public class CraftingTable : MonoBehaviour, IPointerClickHandler
     [SerializeField] private CraftingRecipeList recipeList = null;
     [Space]
     [SerializeField] private CraftingTableView craftingTableView;
+    [Space]
+    [SerializeField] private StudioEventEmitter craftItemEmitter = null;
 
     public CraftingTableView View => craftingTableView;
 
@@ -45,6 +48,10 @@ public class CraftingTable : MonoBehaviour, IPointerClickHandler
         if (recipe == null) return;
 
         int itemsToCraft = Mathf.Min(count, maxCraftedItems);
+        if (itemsToCraft == 0) return;
+
+        if (craftItemEmitter != null) craftItemEmitter.Play();
+
         for (int craftItemI = 0; craftItemI < itemsToCraft; craftItemI++)
         {
             if (OutputContainer[0].SpaceLeft >= 1)

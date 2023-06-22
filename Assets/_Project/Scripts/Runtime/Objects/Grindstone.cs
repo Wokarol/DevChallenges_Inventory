@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMODUnity;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -20,6 +21,10 @@ public class Grindstone : MonoBehaviour, IPointerClickHandler
     [Space]
     [SerializeField] private AnimationCurve grindingAngleToProgressSpeedCurve = AnimationCurve.Linear(0f, 1f, 15f, 0f);
     [SerializeField] private float grindingSpeedMultiplier = 0.06f;
+    [Space]
+    [SerializeField] private StudioEventEmitter grindstoneSoundEventEmitter = null;
+    [SerializeField] private string grindstoneQualityParameterName = "Quality";
+    [SerializeField] private StudioEventEmitter grindstoneFailEventEmitter = null;
 
     public BasicContainer WeaponContainer;
 
@@ -64,6 +69,9 @@ public class Grindstone : MonoBehaviour, IPointerClickHandler
             GrindProgress += angleProgressMultiplier * grindingSpeedMultiplier * Time.deltaTime;
             GrindProgress = Mathf.Clamp01(GrindProgress);
 
+            if (grindstoneSoundEventEmitter != null) 
+                grindstoneSoundEventEmitter.SetParameter(grindstoneQualityParameterName, Mathf.Clamp01(angleProgressMultiplier));
+
             if (GrindProgress >= 1)
             {
                 FinishGrind();
@@ -106,6 +114,8 @@ public class Grindstone : MonoBehaviour, IPointerClickHandler
     {
         SwitchStateTo(State.Idle);
         WeaponContainer[0] = ItemStack.Empty;
+
+        if (grindstoneFailEventEmitter != null) grindstoneFailEventEmitter.Play();
     }
 
     private void SwitchStateTo(State newState)
@@ -116,6 +126,13 @@ public class Grindstone : MonoBehaviour, IPointerClickHandler
         {
             GrindAngle = 0;
             GrindProgress = 0.2f;
+
+            if (grindstoneSoundEventEmitter != null) grindstoneSoundEventEmitter.Play();
+        }
+
+        if (newState == State.Idle)
+        {
+            if (grindstoneSoundEventEmitter != null) grindstoneSoundEventEmitter.Stop();
         }
     }
 }

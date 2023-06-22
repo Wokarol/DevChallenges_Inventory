@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FMODUnity;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -15,6 +16,12 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     [SerializeField] private float heatPerFuelUnit = 0.05f;
     [SerializeField] private float heatDropPerSecond = 0.1f;
     [SerializeField] private float cooldownBetweenFuelAdding = 0.5f;
+    [Space]
+    [SerializeField] private StudioEventEmitter craftItemSoundEmitter = null;
+    [SerializeField] private StudioEventEmitter dropletSoundEmitter = null;
+    [SerializeField] private StudioEventEmitter fireSoundEmitter = null;
+    [SerializeField] private string fireSoundIsOpenParameterName = "Is Open";
+    [SerializeField] private string fireSoundStrengthParameterName = "Strength";
 
     private float nextOreAddTime;
     private float nextFuelAddTime;
@@ -71,6 +78,21 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
 
         Heat -= heatDropPerSecond * Time.deltaTime;
         Heat = Mathf.Clamp(Heat, 0, 100);
+
+        if (fireSoundEmitter != null)
+        {
+            if (fireSoundEmitter.IsPlaying() && Heat <= 0)
+            {
+                fireSoundEmitter.Stop();
+            }
+            if (!fireSoundEmitter.IsPlaying() && Heat > 0)
+            {
+                fireSoundEmitter.Play();
+                fireSoundEmitter.SetParameter(fireSoundIsOpenParameterName, 1);
+            }
+
+            fireSoundEmitter.SetParameter(fireSoundStrengthParameterName, Heat);
+        }
     }
 
     private void ProcessOreMelting()
@@ -85,6 +107,8 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
             MetalFill += 1;
             ConsumedMetal?.Invoke();
 
+            if (dropletSoundEmitter != null) dropletSoundEmitter.Play();
+
             nextOreAddTime = Mathf.Max(nextOreAddTime, Time.time + cooldownBetweenOreAdding);
         }
     }
@@ -92,6 +116,12 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         FindObjectOfType<Player>().OpenAnvil(this);
+        if (fireSoundEmitter != null) fireSoundEmitter.SetParameter(fireSoundIsOpenParameterName, 1);
+    }
+
+    public void Close()
+    {
+        if (fireSoundEmitter != null) fireSoundEmitter.SetParameter(fireSoundIsOpenParameterName, 0);
     }
 
     public void PreviousRecipe()
@@ -138,6 +168,9 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
 
         MetalFill -= CurrentRecipe.MetalCost;
         OutputContainer[0] = OutputContainer[0].CombineWith(new(CurrentRecipe.CreatedItem, 1), out var remainingStack);
+
+        if (craftItemSoundEmitter != null) craftItemSoundEmitter.Play();
+
         if (!remainingStack.IsEmpty)
             Debug.LogError("Oh no, the stack was not left empty!");
     }

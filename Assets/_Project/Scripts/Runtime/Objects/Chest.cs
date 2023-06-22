@@ -42,7 +42,8 @@ public class Chest : MonoBehaviour, IPointerClickHandler
             {
                 IsLocked = KeyContainer[0].IsEmpty;
                 LockedStateChanged?.Invoke(IsLocked);
-                lockSound.Play();
+
+                if (lockSound != null) lockSound.Play();
             };
         }
     }
@@ -54,7 +55,7 @@ public class Chest : MonoBehaviour, IPointerClickHandler
         chestLid.DOKill();
         chestLid.DOLocalRotate(Vector3.right * 60f, 0.5f);
 
-        openCloseSound.Play();
+        if (openCloseSound != null) openCloseSound.Play();
     }
 
     public void CloseChest()
@@ -62,6 +63,6 @@ public class Chest : MonoBehaviour, IPointerClickHandler
         chestLid.DOKill();
         chestLid.DOLocalRotate(Vector3.zero, 0.5f);
 
-        openCloseSound.Play();
+        if (openCloseSound != null) openCloseSound.Play();
     }
 }

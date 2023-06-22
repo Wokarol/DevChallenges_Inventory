@@ -1,4 +1,5 @@
 using DG.Tweening;
+using FMODUnity;
 using System;
 using UnityEngine;
 
@@ -11,6 +12,8 @@ public class InventoryView : MonoBehaviour
     [Space]
     [SerializeField] private RectTransform playerInventorySection = null;
     [SerializeField] private RectTransform secondarySection = null;
+    [Space]
+    [SerializeField] private StudioEventEmitter inventorySwipeEventEmitter = null;
 
     public bool IsOpen { get; private set; }
 
@@ -96,6 +99,8 @@ public class InventoryView : MonoBehaviour
         clickBlockerPane.SetActive(true);
         fullPanel.DOAnchorMin(Vector2.zero, 0.3f);
         fullPanel.DOAnchorMax(Vector2.one, 0.3f);
+
+        if (inventorySwipeEventEmitter != null) inventorySwipeEventEmitter.Play();
     }
 
     private void SlidePanelOut()
@@ -103,6 +108,8 @@ public class InventoryView : MonoBehaviour
         fullPanel.DOAnchorMin(new(0, -1f), 0.3f);
         fullPanel.DOAnchorMax(new(1, 0), 0.3f)
             .OnComplete(() => clickBlockerPane.SetActive(false));
+
+        if (inventorySwipeEventEmitter != null) inventorySwipeEventEmitter.Play();
     }
 
     private void PutPanelBelow()

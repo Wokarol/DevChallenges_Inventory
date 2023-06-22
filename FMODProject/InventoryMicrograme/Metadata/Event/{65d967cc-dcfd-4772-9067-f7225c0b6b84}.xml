@@ -60,7 +60,7 @@
 			<destination>{fb70c13f-ae5c-4e5e-bbb7-551ed2207cda}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{66d67db8-ef27-4ffa-b7a3-f5358e7920c2}</destination>
+			<destination>{e2544c82-1385-4d74-a030-846fbf259515}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{b2f6418b-caa8-4a4b-a372-b7ae5a55c830}" />
@@ -89,6 +89,9 @@
 		<property name="volume">
 			<value>-7.5</value>
 		</property>
+		<relationship name="modulators">
+			<destination>{a222f3a2-33df-4850-b1f0-2bc2dce15e58}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{0df4e6df-4872-46ae-bb9e-3a56c2ae02a9}</destination>
 		</relationship>
@@ -106,6 +109,7 @@
 		<relationship name="sounds">
 			<destination>{04fc354c-e6ca-415c-a288-59ec3484c2d3}</destination>
 			<destination>{65d718cc-4a19-4846-9224-6febb4d3f289}</destination>
+			<destination>{b65079d7-b161-4cd9-899f-5a6699b6355a}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{a9aba15e-effd-4111-a6cf-73f197f36739}">
@@ -145,6 +149,20 @@
 			<destination>{a86ac26c-deae-481a-b00c-bcc1a7d1395d}</destination>
 		</relationship>
 	</object>
+	<object class="ADSRModulator" id="{a222f3a2-33df-4850-b1f0-2bc2dce15e58}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="initialValue">
+			<value>-80</value>
+		</property>
+		<property name="attackTime">
+			<value>0</value>
+		</property>
+		<property name="finalValue">
+			<value>-80</value>
+		</property>
+	</object>
 	<object class="MixerBusEffectChain" id="{0df4e6df-4872-46ae-bb9e-3a56c2ae02a9}">
 		<relationship name="effects">
 			<destination>{4ca35bf6-808d-46d4-abf1-bff5f2d1b7c3}</destination>
@@ -168,6 +186,17 @@
 		</property>
 		<relationship name="audioFile">
 			<destination>{6c3dc721-dfca-456c-ab45-4496a0226c76}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{b65079d7-b161-4cd9-899f-5a6699b6355a}">
+		<property name="volume">
+			<value>-4</value>
+		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
+		<relationship name="audioFile">
+			<destination>{d479a070-5546-40d9-ac0c-5ec7eb7cb6e3}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{4f8fab16-0562-478a-b738-8e7ce9d8759b}" />

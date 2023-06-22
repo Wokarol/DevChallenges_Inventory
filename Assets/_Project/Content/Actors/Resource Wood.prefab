@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3076744308822122036}
   - component: {fileID: 4992048727215445920}
   - component: {fileID: 7415590811207919710}
+  - component: {fileID: 8085865039204297482}
   m_Layer: 0
   m_Name: Resource Wood
   m_TagString: Untagged
@@ -77,6 +78,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987d50d8f5f833b41a53e6562e584b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventEmitter: {fileID: 8085865039204297482}
+--- !u!114 &8085865039204297482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3895960948514233579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1932542608
+      Data2: 1280755785
+      Data3: -539416960
+      Data4: 820032330
+    Path: event:/Resources/Wood-Grab
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &1285821425397122680
 PrefabInstance:
   m_ObjectHideFlags: 0
