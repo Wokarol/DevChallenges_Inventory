@@ -27,10 +27,15 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
     public float CookingTime => cookingTime;
     public Item CookedItem => CooktopInputContainer[0].Item;
 
-    public bool HasFuel => !FuelContainer[0].IsEmpty;
+    public bool HasFuel => !FuelContainer[0].IsEmpty && FuelContainer[0].Count > ItemsInHandFromFuelContainer;
 
     public float ItemBurningTime { get; private set; } = 0;
     public float BurnTimeLeft { get; private set; } = 0;
+    
+    // This is a hack caused by lack of "hand slot"
+    public int ItemsInHandFromFuelContainer { get; set; } = 0; // We use this hack to fix an issue with fuel being consumed while the player holds the stack
+    public int ItemsInHandFromInputContainer { get; set; } = 0; // We use this hack to fix an issue with input being consumed while the player holds the stack
+
 
     private void Awake()
     {
@@ -128,12 +133,14 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
 
     private void CooktopInputContainer_InventoryUpdated()
     {
-        if (state is State.Cooking or State.Suspended && CooktopInputContainer[0].IsEmpty)
+        bool hasInput = !CooktopInputContainer[0].IsEmpty && CooktopInputContainer[0].Count > ItemsInHandFromInputContainer;
+
+        if (state is State.Cooking or State.Suspended && !hasInput)
         {
             SwitchStateTo(State.Idle);
         }
 
-        if (state is State.Idle && !CooktopInputContainer[0].IsEmpty)
+        if (state is State.Idle && hasInput)
         {
             if (HasFuel || BurnTimeLeft > 0)
             {
@@ -174,5 +181,10 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
     public void Close()
     {
         if (fireBurningEvent != null) fireBurningEvent.SetParameter(isOpenParameterName, 0);
+    }
+
+    public void ForceInventoryUpdate()
+    {
+        CooktopInputContainer_InventoryUpdated();
     }
 }

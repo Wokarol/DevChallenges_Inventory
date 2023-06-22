@@ -45,7 +45,7 @@ public class Player : MonoBehaviour
 
     public void OpenAnvil(Anvil anvil)
     {
-        inventoryView.OpenWithSecondMenu(anvil.View, view => view.BindTo(anvil));
+        inventoryView.OpenWithSecondMenu(anvil.View, view => view.BindTo(anvil), anvil.Close);
     }
 
     public void OpenGrindstone(Grindstone grindstone)

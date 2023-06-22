@@ -49,6 +49,17 @@ public class FireplaceView : MonoBehaviour, IInventoryMenuView
         fuelContainerView.BindTo(fuelContainer);
 
         cooktopOutputContainerView.OutputOnly = true;
+
+        fuelContainerView.OnHeldItemsChanged += i =>
+        {
+            fireplace.ItemsInHandFromFuelContainer = i;
+        };
+
+        cooktopInputContainerView.OnHeldItemsChanged += i =>
+        {
+            fireplace.ItemsInHandFromInputContainer = i;
+            fireplace.ForceInventoryUpdate();
+        };
     }
 
     public void AbortInteraction()
