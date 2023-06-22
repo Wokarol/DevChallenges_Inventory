@@ -93,6 +93,11 @@ public class AnvilView : MonoBehaviour, IInventoryMenuView
         {
             anvil.ItemsInHandFromFuelContainer = heldItems;
         };
+
+        oreInputContainerView.OnHeldItemsChanged += heldItems =>
+        {
+            anvil.ItemsInHandFromOreContainer = heldItems;
+        };
     }
 
     private void SubscribeToBoundEvents()

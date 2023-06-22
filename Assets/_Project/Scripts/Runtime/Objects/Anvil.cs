@@ -30,7 +30,9 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     public AnvilRecipe CurrentRecipe { get; private set; }
     public bool IsHeatedUp => Heat > 0.8;
 
+    // This is a hack caused by lack of "hand slot"
     public int ItemsInHandFromFuelContainer { get; set; } = 0; // We use this hack to fix an issue with fuel being consumed while the player holds the stack
+    public int ItemsInHandFromOreContainer { get; set; } = 0; // We use this hack to fix an issue with ore being consumed while the player holds the stack
 
     public event Action ConsumedMetal;
     public event Action ConsumedFuel;
@@ -75,7 +77,7 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     {
         bool oreAddCooldownGone = nextOreAddTime < Time.time;
         bool isMetalFull = MetalFill >= MaxMetal;
-        bool hasMetalOre = !OreInputContainer[0].IsEmpty;
+        bool hasMetalOre = !OreInputContainer[0].IsEmpty && OreInputContainer[0].Count > ItemsInHandFromOreContainer;
 
         if (oreAddCooldownGone && !isMetalFull && hasMetalOre && IsHeatedUp)
         {
