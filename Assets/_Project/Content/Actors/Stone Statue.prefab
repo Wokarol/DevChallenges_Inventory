@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1280102805976977719}
   - component: {fileID: 7588762957443343752}
   - component: {fileID: 1120936978459010961}
+  - component: {fileID: 4397712903701841539}
   m_Layer: 0
   m_Name: Stone Statue
   m_TagString: Untagged
@@ -47,6 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 987d50d8f5f833b41a53e6562e584b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eventEmitter: {fileID: 0}
 --- !u!136 &1120936978459010961
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -61,6 +63,22 @@ CapsuleCollider:
   m_Height: 2.8162785
   m_Direction: 1
   m_Center: {x: -0, y: 1.0927639, z: 0}
+--- !u!114 &4397712903701841539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6295122846823988844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eb37f026deba55428f6646154677f0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stoneStatueView: {fileID: 3407924903149909238, guid: 1b345b925c63e56428b5d1039db36546, type: 3}
+  expectedItems: []
+  resultItems: []
+  displayName: Kevin
 --- !u!1001 &843283200971293149
 PrefabInstance:
   m_ObjectHideFlags: 0

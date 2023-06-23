@@ -53,6 +53,11 @@ public class Player : MonoBehaviour
         inventoryView.OpenWithSecondMenu(grindstone.View, view => view.BindTo(grindstone));
     }
 
+    public void OpenStatue(StoneStatue stoneStatue)
+    {
+        inventoryView.OpenWithSecondMenu(stoneStatue.View, view => view.BindTo(stoneStatue));
+    }
+
     public void GiveItem(Item item, int count)
     {
         inventory.Container.TakeStack(new(item, count), out var remaining);

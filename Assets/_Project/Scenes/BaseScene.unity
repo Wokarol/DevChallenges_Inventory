@@ -833,6 +833,58 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: displayName
+      value: John
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: messageAfter
+      value: Receive this precious gem, for it shall serve thee in times of need
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: messageBefore
+      value: Bestow upon me sustenance amassed by thy hand
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.data[0].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: f7315877fcac5934896defa07c4e6f2d, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.data[0].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[0].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 0637b03c8488bd34898331236430a553, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[1].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 7a04ca1b45f11184fa4c67bb0e83e9a1, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[2].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 974f8f1e770f6244c832721e0ddf5c25, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[0].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[1].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[2].count
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6295122846823988844, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
       propertyPath: m_Name
       value: Stone Statue (John)
@@ -901,6 +953,42 @@ PrefabInstance:
     - target: {fileID: 1280102805976977719, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: displayName
+      value: Gregory
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: messageAfter
+      value: Receive this precious gem, for it shall serve thee in times of need
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: messageBefore
+      value: Grant me the flame thou hast ignited
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.data[0].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 736f74af69b9d70429db0c5c5569164e, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.data[0].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[0].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 48e51ceeb956c324498e28162bf32b48, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[0].count
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6295122846823988844, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
       propertyPath: m_Name
@@ -1262,6 +1350,56 @@ PrefabInstance:
     - target: {fileID: 1280102805976977719, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: messageAfter
+      value: Take hold of this golden hoe, and with ardent passion, tend to the bountiful
+        soil, sowing seeds of ecstasy that shall yield abundant pleasure
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: messageBefore
+      value: Bestow upon me the testament of thy triumphs, that I may witness thy
+        glorious feats
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.data[0].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 6e5141e709371744aba250411e1fe928, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.data[0].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[0].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 07b18cd2c42aec2459cb044b298b27f0, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[1].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 736f74af69b9d70429db0c5c5569164e, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[2].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: f7315877fcac5934896defa07c4e6f2d, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[0].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[1].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[2].count
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6295122846823988844, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
       propertyPath: m_Name
@@ -1661,6 +1799,58 @@ PrefabInstance:
     - target: {fileID: 1280102805976977719, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: displayName
+      value: David
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: messageAfter
+      value: Receive this precious gem, for it shall serve thee in times of need
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: messageBefore
+      value: Bestow upon me thine hand-crafted weapons
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.data[0].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 07b18cd2c42aec2459cb044b298b27f0, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: resultItems.Array.data[0].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[0].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 3b766baec25d22d499648dc60cdaf04d, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[1].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 491e1da5bf900d54da0539a07b4ae404, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[2].Item
+      value: 
+      objectReference: {fileID: 11400000, guid: 94ac897ea291f754cbd82ab25f624633, type: 2}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[0].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[1].count
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397712903701841539, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
+      propertyPath: expectedItems.Array.data[2].count
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6295122846823988844, guid: d4f3569be40e8ef428353ff4fe53adf0, type: 3}
       propertyPath: m_Name
@@ -5454,6 +5644,12 @@ MonoBehaviour:
     count: 10
   - Item: {fileID: 11400000, guid: 2587bd5025ea6014aa98cae412c2a882, type: 2}
     count: 5
+  - Item: {fileID: 11400000, guid: 974f8f1e770f6244c832721e0ddf5c25, type: 2}
+    count: 1
+  - Item: {fileID: 11400000, guid: 0637b03c8488bd34898331236430a553, type: 2}
+    count: 2
+  - Item: {fileID: 11400000, guid: 7a04ca1b45f11184fa4c67bb0e83e9a1, type: 2}
+    count: 3
 --- !u!1001 &1401027110
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ public class BasicContainer : IItemContainer
     private Predicate<Item> acceptedItemPredicate;
     private bool ignorePredicateOnDirectInsert;
 
+    public IEnumerable<ItemStack> AllItems => items;
+
     public BasicContainer(int slotCount, List<ItemStack> startingItems = null)
     {
         items = new ItemStack[slotCount];

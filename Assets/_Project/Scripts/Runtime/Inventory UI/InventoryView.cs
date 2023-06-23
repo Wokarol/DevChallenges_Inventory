@@ -29,7 +29,9 @@ public class InventoryView : MonoBehaviour
 
         playerInventoryView.OtherContainerFindStrategy = FindOtherContainerForPlayerPanelStrategy;
         trash = new(1);
+        trash.AcceptsOnly(i => !i.Indestructible);
         trashView.BindTo(trash);
+
 
         trash.InventoryUpdated += Trash_InventoryUpdated;
     }

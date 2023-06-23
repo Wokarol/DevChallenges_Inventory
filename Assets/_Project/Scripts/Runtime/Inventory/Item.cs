@@ -9,6 +9,7 @@ public class Item : ScriptableObject
     [Space]
     [SerializeField] private Sprite sprite;
     [SerializeField] private int maxStackSize = 10;
+    [SerializeField] private bool indestructible = false;
     [Header("Burning")]
     [SerializeField] private float burningDuration = -1;
     [Header("Cooking")]
@@ -31,4 +32,6 @@ public class Item : ScriptableObject
 
     public bool CanBeGrinded => grindedVersion != null;
     public Item GrindedVersion => grindedVersion;
+
+    public bool Indestructible => indestructible;
 }

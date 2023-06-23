@@ -118,6 +118,11 @@ public class ItemContainerView : MonoBehaviour
 
         this.container = container;
 
+        for (int i = 0; i < slotViews.Length; i++)
+        {
+            slotViews[i].gameObject.SetActive(i < container.SlotCount);
+        }
+
         MarkContainerViewDirty();
 
         container.InventoryUpdated += MarkContainerViewDirty;
