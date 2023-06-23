@@ -83,6 +83,8 @@ RectTransform:
   - {fileID: 4160817163948489518}
   - {fileID: 3758177647166315556}
   - {fileID: 1873619566914665903}
+  - {fileID: 2689670320435499596}
+  - {fileID: 7445521377280050504}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -152,26 +154,27 @@ MonoBehaviour:
   slabCloseDuration: 1.5
   slabOpenDuration: 2
   waitForResult: 1.5
+  waitAfterResult: 1
   slabCloseCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 0.9571566
+      outSlope: 0.9571566
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.05270797
     - serializedVersion: 3
       time: 0.7507652
       value: 1.0004473
-      inSlope: 3.0324278
+      inSlope: 1.793782
       outSlope: -1.0748628
       tangentMode: 1
       weightedMode: 0
-      inWeight: 0.026000595
+      inWeight: 0.035883375
       outWeight: 0.12675841
     - serializedVersion: 3
       time: 1
@@ -186,29 +189,38 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   flashes:
-  - {fileID: 9182197361757075941}
-  - {fileID: 7909320991472363146}
-  flashDuration: 0.5
+  - {fileID: 9207924127788552248}
+  - {fileID: 5581789598730455875}
+  flashDuration: 1
   flashScaleCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 2.0897512
-      outSlope: 2.0897512
+      inSlope: 3.413994
+      outSlope: 3.413994
       tangentMode: 0
       weightedMode: 3
       inWeight: 0
-      outWeight: 0.4280712
+      outWeight: 0.4851228
     - serializedVersion: 3
-      time: 1.0031532
+      time: 0.49770766
       value: 0.99814755
-      inSlope: -1.3323416
-      outSlope: -1.3323416
+      inSlope: -2.4369504
+      outSlope: -2.4369504
       tangentMode: 0
       weightedMode: 3
-      inWeight: 0.31489143
+      inWeight: 0.30280706
+      outWeight: 0.1024678
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -0.7357733
+      outSlope: -0.7357733
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.16354148
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -219,17 +231,17 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 14.395486
+      outSlope: 14.395486
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0
+      outWeight: 0.095606916
     - serializedVersion: 3
-      time: 1
-      value: 20.08258
-      inSlope: 1
-      outSlope: 1
+      time: 0.999059
+      value: 29.941881
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
@@ -237,8 +249,12 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  flashColorGood: {r: 0.5568628, g: 1, b: 0.5254902, a: 1}
+  flashColorBad: {r: 1, g: 0.2509804, b: 0.3137255, a: 1}
   closeSoundEvent: {fileID: 2098129495634698554}
   openSoundEvent: {fileID: 4573003331706655189}
+  correctItemsSoundEvent: {fileID: 5912349521072948777}
+  wrongItemsSoundEvent: {fileID: 2603970085561821838}
 --- !u!1 &924135660799691490
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,6 +811,74 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &3670864105756294838
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2689670320435499596}
+  - component: {fileID: 5912349521072948777}
+  m_Layer: 5
+  m_Name: Good Items Sound Event
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2689670320435499596
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3670864105756294838}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 423734482847911644}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5912349521072948777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3670864105756294838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -463665253
+      Data2: 1176500009
+      Data3: -1083049039
+      Data4: -1290894447
+    Path: event:/Objects/Statue-Good
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &3675571955038723339
 GameObject:
   m_ObjectHideFlags: 0
@@ -854,7 +938,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 0422619c6305e33428b6fc0e34e44fa6, type: 2}
-  m_Color: {r: 1, g: 0.25, b: 0.31456542, a: 1}
+  m_Color: {r: 0.5550619, g: 1, b: 0.5235849, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1126,6 +1210,74 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!1 &6160264048208995600
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7445521377280050504}
+  - component: {fileID: 2603970085561821838}
+  m_Layer: 5
+  m_Name: Bad Items Sound Event
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7445521377280050504
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6160264048208995600}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 423734482847911644}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2603970085561821838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6160264048208995600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 122881880
+      Data2: 1308335782
+      Data3: -1562313582
+      Data4: -62839923
+    Path: event:/Objects/Statue-Bad
+  Event: 
+  PlayEvent: 0
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &6846885617470324787
 GameObject:
   m_ObjectHideFlags: 0

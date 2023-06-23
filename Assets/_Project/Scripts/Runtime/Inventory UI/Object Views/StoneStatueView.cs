@@ -20,14 +20,19 @@ public class StoneStatueView : MonoBehaviour, IInventoryMenuView
     [SerializeField] private float slabCloseDuration = 2;
     [SerializeField] private float slabOpenDuration = 2;
     [SerializeField] private float waitForResult = 1;
+    [SerializeField] private float waitAfterResult = 0.5f;
     [SerializeField] private AnimationCurve slabCloseCurve = AnimationCurve.Linear(0, 0, 1, 1);
-    [SerializeField] private Transform[] flashes;
+    [SerializeField] private Image[] flashes;
     [SerializeField] private float flashDuration;
     [SerializeField] private AnimationCurve flashScaleCurve = AnimationCurve.Linear(0, 0, 1, 1);
     [SerializeField] private AnimationCurve flashRotateCurve = AnimationCurve.Linear(0, 0, 1, 1);
+    [SerializeField] private Color flashColorGood = Color.white;
+    [SerializeField] private Color flashColorBad = Color.white;
     [Space]
     [SerializeField] private StudioEventEmitter closeSoundEvent;
     [SerializeField] private StudioEventEmitter openSoundEvent;
+    [SerializeField] private StudioEventEmitter correctItemsSoundEvent;
+    [SerializeField] private StudioEventEmitter wrongItemsSoundEvent;
 
     private StoneStatue statue;
 
@@ -78,8 +83,8 @@ public class StoneStatueView : MonoBehaviour, IInventoryMenuView
 
     private async UniTask OnAccept()
     {
-        PrepareFlash(flashes[0]);
-        PrepareFlash(flashes[1]);
+        PrepareFlash(flashes[0].transform);
+        PrepareFlash(flashes[1].transform);
 
         accept.interactable = false;
 
@@ -89,16 +94,27 @@ public class StoneStatueView : MonoBehaviour, IInventoryMenuView
             .Join(closingSlab.DOAnchorMax(new(1, 1), slabCloseDuration).SetEase(slabCloseCurve))
             .SetLink(closingSlab.gameObject);
 
-        statue.Sacrifice();
+        bool sacrificed = statue.TrySacrifice();
         UpdateMessageAndHolders();
 
         await UniTask.Delay(TimeSpan.FromSeconds(waitForResult));
 
-        await UniTask.WhenAll(
-                AnimateFlash(flashes[0]),
-                AnimateFlash(flashes[1])
-            );
+        flashes[0].color = sacrificed ? flashColorGood : flashColorBad;
+        flashes[1].color = sacrificed ? flashColorGood : flashColorBad;
 
+        if (sacrificed)
+        {
+            if (correctItemsSoundEvent != null) correctItemsSoundEvent.Play();
+        }
+        else
+        {
+            if (wrongItemsSoundEvent != null) wrongItemsSoundEvent.Play();
+        }
+
+        _ = AnimateFlash(flashes[0].transform);
+        _ = AnimateFlash(flashes[1].transform);
+
+        await UniTask.Delay(TimeSpan.FromSeconds(waitAfterResult));
 
         if (openSoundEvent != null)
         {
@@ -119,6 +135,7 @@ public class StoneStatueView : MonoBehaviour, IInventoryMenuView
         inputContainerHolder.SetActive(!statue.SacrificeDone);
         outputContainerHolder.SetActive(statue.SacrificeDone);
     }
+
     private void PrepareFlash(Transform t)
     {
         t.localScale = Vector3.zero;

@@ -14,6 +14,7 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
     [SerializeField] private StudioEventEmitter fireBurningEvent;
     [SerializeField] private string isCookingParameterName = "Is Cooking";
     [SerializeField] private string isOpenParameterName = "Is Open";
+    [SerializeField] private StudioEventEmitter woodAddEvent;
     [Space]
     [SerializeField] private Transform flameRoot = null;
 
@@ -26,6 +27,7 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
 
     private State state = State.Idle;
     private float cookingTime;
+    private bool isOpen;
 
     public float CookingTime => cookingTime;
     public Item CookedItem => CooktopInputContainer[0].Item;
@@ -132,6 +134,8 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
         ItemBurningTime = FuelContainer[0].Item.BurningDuration;
         BurnTimeLeft += ItemBurningTime;
         FuelContainer[0] = FuelContainer[0].Subtract(1);
+
+        if (isOpen && woodAddEvent != null) woodAddEvent.Play();
     }
 
     private void CooktopInputContainer_InventoryUpdated()
@@ -179,11 +183,13 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         FindObjectOfType<Player>().OpenFireplace(this);
+        isOpen = true;
         if (fireBurningEvent != null) fireBurningEvent.SetParameter(isOpenParameterName, 1);
     }
 
     public void Close()
     {
+        isOpen = false;
         if (fireBurningEvent != null) fireBurningEvent.SetParameter(isOpenParameterName, 0);
     }
 

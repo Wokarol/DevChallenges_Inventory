@@ -35,7 +35,7 @@ public class StoneStatue : MonoBehaviour, IPointerClickHandler
         FindObjectOfType<Player>().OpenStatue(this);
     }
 
-    public void Sacrifice()
+    public bool TrySacrifice()
     {
         var inputItemIDs = InputContainer.AllItems
             .Select(stack => stack.Item)
@@ -47,7 +47,7 @@ public class StoneStatue : MonoBehaviour, IPointerClickHandler
         var hasAllItems = inputItemIDs.Zip(expectedItemIDs, (a, b) => a == b).All(b => b);
 
         if (!hasAllItems)
-            return;
+            return false;
 
         for (int i = 0; i < InputContainer.SlotCount; i++)
         {
@@ -60,5 +60,6 @@ public class StoneStatue : MonoBehaviour, IPointerClickHandler
         }
 
         SacrificeDone = true;
+        return true;
     }
 }

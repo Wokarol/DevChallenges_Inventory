@@ -19,12 +19,14 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     [Space]
     [SerializeField] private StudioEventEmitter craftItemSoundEmitter = null;
     [SerializeField] private StudioEventEmitter dropletSoundEmitter = null;
+    [SerializeField] private StudioEventEmitter woodAddSoundEmitter = null;
     [SerializeField] private StudioEventEmitter fireSoundEmitter = null;
     [SerializeField] private string fireSoundIsOpenParameterName = "Is Open";
     [SerializeField] private string fireSoundStrengthParameterName = "Strength";
 
     private float nextOreAddTime;
     private float nextFuelAddTime;
+    private bool isOpen;
 
     public AnvilView View => anvilView;
     public int MaxMetal => maxMetal;
@@ -73,6 +75,8 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
             FuelInputContainer[0] = FuelInputContainer[0].Subtract(1);
             ConsumedFuel?.Invoke();
 
+            if (isOpen && woodAddSoundEmitter != null) woodAddSoundEmitter.Play();
+
             nextFuelAddTime = Time.time + cooldownBetweenFuelAdding;
         }
 
@@ -107,7 +111,7 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
             MetalFill += 1;
             ConsumedMetal?.Invoke();
 
-            if (dropletSoundEmitter != null) dropletSoundEmitter.Play();
+            if (isOpen && dropletSoundEmitter != null) dropletSoundEmitter.Play();
 
             nextOreAddTime = Mathf.Max(nextOreAddTime, Time.time + cooldownBetweenOreAdding);
         }
@@ -116,11 +120,13 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         FindObjectOfType<Player>().OpenAnvil(this);
+        isOpen = true;
         if (fireSoundEmitter != null) fireSoundEmitter.SetParameter(fireSoundIsOpenParameterName, 1);
     }
 
     public void Close()
     {
+        isOpen = false;
         if (fireSoundEmitter != null) fireSoundEmitter.SetParameter(fireSoundIsOpenParameterName, 0);
     }
 
