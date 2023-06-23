@@ -1,4 +1,5 @@
-﻿using FMODUnity;
+﻿using DG.Tweening;
+using FMODUnity;
 using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -13,6 +14,8 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
     [SerializeField] private StudioEventEmitter fireBurningEvent;
     [SerializeField] private string isCookingParameterName = "Is Cooking";
     [SerializeField] private string isOpenParameterName = "Is Open";
+    [Space]
+    [SerializeField] private Transform flameRoot = null;
 
     public FireplaceView View => view;
 
@@ -47,6 +50,8 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
         FuelContainer.AcceptsOnly(i => i.CanBeBurned);
 
         CooktopInputContainer.InventoryUpdated += CooktopInputContainer_InventoryUpdated;
+
+        flameRoot.localScale = Vector3.zero;
     }
 
     private void Update()
@@ -57,6 +62,7 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
             if (BurnTimeLeft <= 0)
             {
                 fireBurningEvent.Stop();
+                flameRoot.DOScale(0, 0.25f);
             }
             fireBurningEvent.SetParameter(isCookingParameterName, state is State.Cooking ? 1 : 0);
         }
@@ -165,6 +171,7 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
             if (fireBurningEvent != null)
             {
                 fireBurningEvent.Play();
+                flameRoot.DOScale(1, 0.25f);
             }
         }
     }
