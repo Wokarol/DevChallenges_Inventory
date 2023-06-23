@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Wokarol.Common.UI
@@ -19,6 +20,8 @@ namespace Wokarol.Common.UI
         [SerializeField] private Sprite linearSlideCursor;
         [SerializeField] private Sprite rotationCursor;
         [SerializeField] private Sprite textCursor;
+        [Space]
+        [SerializeField] private UnityEvent onClick;
 
         private List<CursorDriver> drivers = new();
         private CursorType lastStateType;
@@ -37,6 +40,7 @@ namespace Wokarol.Common.UI
             if (Input.GetMouseButtonDown(0))
             {
                 cursorImage.transform.DOBlendableScaleBy(Vector3.one * -scaleBy, scaleDownDuration);
+                onClick.Invoke();
             }
             if (Input.GetMouseButtonUp(0))
             {
@@ -60,9 +64,6 @@ namespace Wokarol.Common.UI
                 
             }
             lastStateType = state.Type;
-
-            //cursorImage.transform.rotation = Quaternion.Euler(0, 0, state.Rotation);
-
         }
 
         private void OnApplicationFocus(bool focus)
