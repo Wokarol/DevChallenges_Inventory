@@ -172,6 +172,8 @@ public class Anvil : MonoBehaviour, IPointerClickHandler
         if (OutputContainer[0].SpaceLeft == 0) return;
         nextOreAddTime = Mathf.Max(nextOreAddTime, Time.time + cooldownBetweenSmithinAndAddingOre);
 
+        if (MetalFill < CurrentRecipe.MetalCost) return;
+
         MetalFill -= CurrentRecipe.MetalCost;
         OutputContainer[0] = OutputContainer[0].CombineWith(new(CurrentRecipe.CreatedItem, 1), out var remainingStack);
 
