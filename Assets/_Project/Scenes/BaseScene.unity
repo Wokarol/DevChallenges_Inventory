@@ -11287,6 +11287,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  fallbackCursor: {fileID: 2800000, guid: 1404b840141f6ec4b926c09d8b99a243, type: 3}
 --- !u!114 &2095240044
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -22,6 +22,8 @@ namespace Wokarol.Common.UI
         [SerializeField] private Sprite textCursor;
         [Space]
         [SerializeField] private UnityEvent onClick;
+        [Space]
+        [SerializeField] private Texture2D fallbackCursor;
 
         private List<CursorDriver> drivers = new();
         private CursorType lastStateType;
@@ -29,9 +31,10 @@ namespace Wokarol.Common.UI
 
         private void Start()
         {
-            Cursor.visible = false;
+            SetCursor();
         }
 
+#if !UNITY_WEBGL
         void Update()
         {
             var screenPos = Input.mousePosition;
@@ -61,19 +64,21 @@ namespace Wokarol.Common.UI
                     .Append(cursorImage.transform.DOBlendableScaleBy(Vector3.one * -0.2f, 0.1f))
                     .SetLink(gameObject).SetTarget(cursorImage)
                     .SetUpdate(true);
-                
+
             }
-            lastStateType = state.Type;
+            lastStateType = state.Type; 
         }
+#endif
 
         private void OnApplicationFocus(bool focus)
         {
-            if (focus) Cursor.visible = false;
+            if (focus) SetCursor();
         }
 
         public void AddDriver(GameObject caller, Func<CursorState> getter, Func<bool> isPriority = null) => AddDriver(caller, d => getter(), isPriority);
         public void AddDriver(GameObject caller, Func<CursorGetterData, CursorState> getter, Func<bool> isPriority = null)
         {
+#if !UNITY_WEBGL
             if (drivers.Any(d => d.Owner == caller))
                 return;
 
@@ -99,10 +104,12 @@ namespace Wokarol.Common.UI
                     return 0;
                 });
             }
+#endif
         }
 
         public void RemoveDriver(GameObject caller)
         {
+#if !UNITY_WEBGL
             int index = drivers.FindIndex(d => d.Owner == caller);
 
             if (index < 0)
@@ -110,9 +117,11 @@ namespace Wokarol.Common.UI
                 throw new Exception($"Trying to remove a driver but none matches the caller ({caller.name})");
             }
 
-            drivers.RemoveAt(index);
+            drivers.RemoveAt(index); 
+#endif
         }
 
+#if !UNITY_WEBGL
         private Sprite GetSpriteFromType(CursorType type)
         {
             return type switch
@@ -154,6 +163,17 @@ namespace Wokarol.Common.UI
                     MousePosition = screenPos,
                 });
             }
+        } 
+#endif
+
+        private void SetCursor()
+        {
+#if UNITY_WEBGL
+            Cursor.visible = true;
+            Cursor.SetCursor(fallbackCursor, new(fallbackCursor.width / 2, fallbackCursor.height / 2), CursorMode.Auto);
+#else
+            Cursor.visible = false;
+#endif
         }
 
         private struct CursorDriver
