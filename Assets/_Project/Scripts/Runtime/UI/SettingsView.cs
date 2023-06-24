@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using FMOD.Studio;
 using FMODUnity;
 using System;
@@ -11,6 +12,8 @@ public class SettingsView : MonoBehaviour
     [SerializeField] private RectTransform panel;
     [SerializeField] private GameObject clickBlocker;
     [Space]
+    [SerializeField] private GameObject fullscreenOption;
+    [Space]
     [SerializeField] private ToggleButton fullscreenToggle;
     [SerializeField] private ToggleButton muteToggle;
     [SerializeField] private Slider mainVolumeSlider;
@@ -19,6 +22,7 @@ public class SettingsView : MonoBehaviour
     [SerializeField] private Slider uiVolumeSlider;
     [Space]
     [SerializeField] private StudioEventEmitter swipeSoundEvent;
+    [Space]
 
     private bool isOpen;
     private Bus audioBus;
@@ -28,6 +32,15 @@ public class SettingsView : MonoBehaviour
 
     private void Awake()
     {
+        AwakeAsync().Forget();
+    }
+
+    private async UniTask AwakeAsync()
+    {
+        Debug.Log("Initializing settings view");
+
+        await UniTask.WaitUntil(() => RuntimeManager.HaveMasterBanksLoaded);
+
         audioBus = RuntimeManager.GetBus("bus:/");
         audioBusAmbient = RuntimeManager.GetBus("bus:/Ambient");
         audioBusEffects = RuntimeManager.GetBus("bus:/Effects");
@@ -41,7 +54,7 @@ public class SettingsView : MonoBehaviour
         settingsButton.onClick.AddListener(ToggleSettingsPanel);
 
         var savedFullscreenSetting = LoadBool("Fullscreen", false);
-        var savedMuteSettings = LoadBool("AudioMuted", true);
+        var savedMuteSettings = LoadBool("AudioMuted", false);
         var savedMainVolume = LoadFloat("Volume-Main", 0.5f);
         var savedAmbientVolume = LoadFloat("Volume-Ambient", 1);
         var savedEffectsVolume = LoadFloat("Volume-Effects", 1);
@@ -96,10 +109,15 @@ public class SettingsView : MonoBehaviour
             audioBusUI.setVolume(v);
             Save("Volume-UI", v);
         });
+
+#if UNITY_WEBGL
+        fullscreenOption.SetActive(false);
+#endif
     }
 
     private static void SetFullscreenBoilerplate(bool v)
     {
+#if !UNITY_WEBGL
         if (v)
         {
             var info = Screen.mainWindowDisplayInfo;
@@ -109,7 +127,8 @@ public class SettingsView : MonoBehaviour
         {
             var info = Screen.mainWindowDisplayInfo;
             Screen.SetResolution(info.width / 2, info.height / 2, FullScreenMode.Windowed);
-        }
+        } 
+#endif
     }
 
     private void ToggleSettingsPanel()

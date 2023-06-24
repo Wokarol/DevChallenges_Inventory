@@ -64,7 +64,7 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
             if (BurnTimeLeft <= 0)
             {
                 fireBurningEvent.Stop();
-                flameRoot.DOScale(0, 0.25f);
+                flameRoot.DOScale(0, 0.75f);
             }
             fireBurningEvent.SetParameter(isCookingParameterName, state is State.Cooking ? 1 : 0);
         }
@@ -96,7 +96,11 @@ public class Fireplace : MonoBehaviour, IPointerClickHandler
 
         if (state is State.Suspended)
         {
-            if (HasFuel)
+            if (BurnTimeLeft > 0)
+            {
+                SwitchStateTo(State.Cooking);
+            }
+            else if (HasFuel)
             {
                 BurnFuel();
                 SwitchStateTo(State.Cooking);

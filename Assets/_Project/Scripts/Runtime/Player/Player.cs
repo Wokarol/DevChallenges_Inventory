@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -27,7 +28,13 @@ public class Player : MonoBehaviour
             else
                 inventoryView.OpenAlone();
         }
+
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+            RestartGame();
+        }
     }
+
     public void OpenChest(Chest chest)
     {
         inventoryView.OpenWithSecondMenu(chest.View, v => v.BindTo(chest), chest.CloseChest);
@@ -64,5 +71,10 @@ public class Player : MonoBehaviour
         if (!remaining.IsEmpty) Debug.LogError("Could not store all the taken items!");
 
         FindObjectOfType<NotificationPanel>().ItemAdded(item, count); // Ugly but quick to write
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(0);
     }
 }

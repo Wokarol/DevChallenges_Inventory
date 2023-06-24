@@ -2696,6 +2696,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 1168827031600291104, guid: 584cb167e94fa934481143128e5aa468, type: 3}
   m_PrefabInstance: {fileID: 638296220}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &674474930 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5564085777794822384, guid: fe4f2f2c1edc616428ba07ff666b46f9, type: 3}
+  m_PrefabInstance: {fileID: 5564085775938020625}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &695428202
 GameObject:
   m_ObjectHideFlags: 0
@@ -5183,6 +5188,7 @@ MonoBehaviour:
   settingsButton: {fileID: 1196671483}
   panel: {fileID: 1499961019}
   clickBlocker: {fileID: 356165914}
+  fullscreenOption: {fileID: 674474930}
   fullscreenToggle: {fileID: 8898656977566459920}
   muteToggle: {fileID: 969381157}
   mainVolumeSlider: {fileID: 447020403}
@@ -9043,6 +9049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1744778369}
   - component: {fileID: 1744778370}
+  - component: {fileID: 1744778371}
   m_Layer: 0
   m_Name: Background Ambient Audio
   m_TagString: Untagged
@@ -9086,8 +9093,8 @@ MonoBehaviour:
       Data4: -2073359524
     Path: event:/Background/Background Ambient
   Event: 
-  PlayEvent: 11
-  StopEvent: 12
+  PlayEvent: 0
+  StopEvent: 0
   AllowFadeout: 1
   TriggerOnce: 0
   Preload: 0
@@ -9096,6 +9103,18 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
+--- !u!114 &1744778371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744778368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1c3f147cafbbd14f9093355b7a87953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1747756168
 GameObject:
   m_ObjectHideFlags: 0
@@ -10419,7 +10438,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: 'This is the end of this small game, it was originally made purerly to
-    test inventory UI, but was turned into a microgame
+    test the inventory UI, but was turned into a microgame
 
 
     Thanks for playing!'
@@ -10737,43 +10756,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.331
+      value: 3.51
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.551
+      value: -0.55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.993
+      value: -3.87
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.2567527
+      value: -0.26268837
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.15882948
+      value: -0.15523145
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.8157576
+      value: -0.8138656
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.49334663
+      value: 0.49449053
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 117.56799
+      value: 117.569
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -34.50702
+      value: -36.311005
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 180.718
+      value: 179.119
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d69df40b8db36304bb1c5a92a6f240a2, type: 3}
       propertyPath: m_ConstrainProportionsScale
