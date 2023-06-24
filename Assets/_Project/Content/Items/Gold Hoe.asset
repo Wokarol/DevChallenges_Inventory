@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Gold Hoe
   m_EditorClassIdentifier: 
   nameOverride: 
-  description: A symbol of status, no one uses it anyways (also, this game has no
-    farming)
+  description: A symbol of status (also, this game has no farming)
   sprite: {fileID: 21300000, guid: ce61c24296474894fbe90f2d3ce99986, type: 3}
   maxStackSize: 1
   indestructible: 1

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class StoneStatue : MonoBehaviour, IPointerClickHandler
@@ -13,6 +14,8 @@ public class StoneStatue : MonoBehaviour, IPointerClickHandler
     [SerializeField] private string displayName;
     [SerializeField, TextArea(3, 5)] private string messageBefore;
     [SerializeField, TextArea(3, 5)] private string messageAfter;
+    [Space]
+    [SerializeField] private UnityEvent afterSacrifice;
 
     public StoneStatueView View => stoneStatueView;
     public BasicContainer InputContainer { get; private set; }
@@ -60,6 +63,7 @@ public class StoneStatue : MonoBehaviour, IPointerClickHandler
         }
 
         SacrificeDone = true;
+        afterSacrifice.Invoke();
         return true;
     }
 }
